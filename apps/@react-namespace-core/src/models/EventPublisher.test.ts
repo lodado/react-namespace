@@ -7,31 +7,38 @@ describe('EventPublisher', () => {
     eventPublisher = new EventPublisher()
   })
 
-  it('should subscribe and publish events correctly', () => {
-    const listener = jest.fn()
-    const unsubscribe = eventPublisher.subscribe('count', listener)
+  describe('as is: Event subscription and publication', () => {
+    describe('when subscribing to a key and publishing events', () => {
+      it('should notify the listener with the published values', () => {
+        const listener = jest.fn()
+        const unsubscribe = eventPublisher.subscribe('count', listener)
 
-    eventPublisher.publish('count', 10)
-    eventPublisher.publish('count', 20)
+        eventPublisher.publish('count', 10)
+        eventPublisher.publish('count', 20)
 
-    expect(listener).toHaveBeenCalledTimes(2)
-    expect(listener).toHaveBeenCalledWith(10)
-    expect(listener).toHaveBeenCalledWith(20)
+        expect(listener).toHaveBeenCalledTimes(2)
+        expect(listener).toHaveBeenCalledWith(10)
+        expect(listener).toHaveBeenCalledWith(20)
 
-    unsubscribe()
+        unsubscribe()
 
-    eventPublisher.publish('count', 30)
+        eventPublisher.publish('count', 30)
 
-    expect(listener).toHaveBeenCalledTimes(2)
-  })
+        expect(listener).toHaveBeenCalledTimes(2) // Listener should not be called after unsubscribe
+      })
+    })
 
-  it('should not call listeners for non-subscribed keys', () => {
-    const listener = jest.fn()
-    eventPublisher.subscribe('count', listener)
+    describe('when publishing events to a non-subscribed key', () => {
+      it('should not call listeners for the key', () => {
+        const listener = jest.fn()
+        eventPublisher.subscribe('count', listener)
 
-    // @ts-ignore
-    eventPublisher.publish('otherKey', 'value')
+        // Publishing to a different key
+        // @ts-ignore
+        eventPublisher.publish('otherKey', 'value')
 
-    expect(listener).not.toHaveBeenCalled()
+        expect(listener).not.toHaveBeenCalled()
+      })
+    })
   })
 })
