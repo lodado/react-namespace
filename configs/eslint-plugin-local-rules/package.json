@@ -1,0 +1,17 @@
+{
+  "name": "eslint-plugin-local-rules",
+  "version": "0.0.0",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^7.32.0"
+  },
+  "publishConfig": {
+    "access": "restricted",
+    "registry": "http://192.168.1.75:8929/api/v4/projects/10/packages/npm/"
+  }
+}

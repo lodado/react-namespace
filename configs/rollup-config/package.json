@@ -1,0 +1,36 @@
+{
+  "name": "rollup-config",
+  "private": true,
+  "version": "0.0.1",
+  "main": "index.js",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "http://192.168.1.75:8929/api/v4/projects/10/packages/npm/"
+  },
+  "sideEffects": false,
+  "devDependencies": {
+    "@babel/core": "^7.24.4",
+    "@babel/plugin-transform-runtime": "^7.24.3",
+    "@babel/preset-env": "^7.24.4",
+    "@babel/preset-react": "^7.24.1",
+    "@babel/preset-typescript": "^7.24.1",
+    "@babel/runtime": "^7.24.4",
+    "@rollup/plugin-alias": "^5.1.0",
+    "@rollup/plugin-babel": "^6.0.4",
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-json": "^6.1.0",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-terser": "^0.4.4",
+    "@rollup/plugin-url": "^8.0.2",
+    "postcss-import": "^16.1.0",
+    "rollup": "^4.14.3",
+    "rollup-plugin-import-css": "^3.5.0",
+    "rollup-plugin-node-externals": "^7.1.1",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-postcss": "^4.0.2",
+    "rollup-plugin-preserve-directives": "^0.4.0",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-visualizer": "^5.12.0"
+  }
+}

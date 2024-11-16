@@ -1,0 +1,14 @@
+{
+  "extends": "tsconfig/react-library.json",
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "rootDir": "../",
+    "paths": {
+      "@table/*": ["./*"]
+    },
+    "typeRoots": ["./src/types"]
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["dist", "build", "node_modules", "**/*.test.*"]
+}

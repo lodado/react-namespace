@@ -1,0 +1,75 @@
+{
+  "name": "@react-namespace/core",
+  "version": "0.0.0",
+  "sideEffects": [
+    "./index.scss"
+  ],
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "require": "./index.ts",
+      "import": "./index.ts"
+    },
+    "./index.scss": "./index.scss",
+    "./package.json": "./package.json"
+  },
+  "source": "./index.ts",
+  "main": "./index.ts",
+  "module": "./index.ts",
+  "types": "./index.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "test": "jest --passWithNoTests",
+    "build": "rollup -c && tsc --emitDeclarationOnly --declarationMap false --declaration --declarationDir dist/types",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
+    "manual-release": "pnpm run build && pnpm publish --no-git-checks"
+  },
+  "devDependencies": {
+    "@types/node": "^20.12.7",
+    "autoprefixer": "^10.4.19",
+    "babel-jest": "29.5.0",
+    "eslint": "^8.57.0",
+    "jest-config": "workspace:*",
+    "rollup-config": "workspace:*",
+    "eslint-config-react-namespace": "workspace:*",
+    "postcss": "^8.4.38",
+    "sass": "^1.75.0",
+    "ts-jest": "29.0.5",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "react": "^18.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    }
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "import": {
+          "types": "./dist/types/index.d.ts",
+          "default": "./dist/es/client/index.mjs"
+        },
+        "require": {
+          "types": "./dist/types/index.d.ts",
+          "default": "./dist/cjs/client/index.cjs"
+        }
+      },
+      "./index.css": "./dist/es/client/index.css"
+    },
+    "source": "./src/index.ts",
+    "main": "./dist/cjs/client/index.cjs",
+    "module": "./dist/es/client/index.mjs",
+    "types": "./dist/types/index.d.ts"
+  }
+}
