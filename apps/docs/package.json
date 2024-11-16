@@ -8,8 +8,7 @@
     "build-storybook": "pnpm run build",
     "preview-storybook": "serve storybook-static",
     "clean": "rm -rf .turbo && rm -rf node_modules",
-    "storybook": "storybook dev -p 6006",
-    "test": "jest --passWithNoTests"
+    "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
     "@react-namespace/core": "workspace:*",

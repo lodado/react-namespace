@@ -2,7 +2,6 @@
   "name": "react-namespace",
   "version": "0.0.0",
   "private": true,
-  "sideEffects": false,
   "description": "state manager for react. It is a simple and powerful state manager that uses the Proxy API to manage the state of your application. inspired by radix-ui's scopeContext and create Context wrapper",
   "keywords": [
     "react",

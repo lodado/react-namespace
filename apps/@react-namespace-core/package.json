@@ -1,16 +1,12 @@
 {
   "name": "@react-namespace/core",
   "version": "0.0.0",
-  "sideEffects": [
-    "./index.scss"
-  ],
   "license": "MIT",
   "exports": {
     ".": {
       "require": "./index.ts",
       "import": "./index.ts"
     },
-    "./index.scss": "./index.scss",
     "./package.json": "./package.json"
   },
   "source": "./index.ts",
