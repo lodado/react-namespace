@@ -1,5 +1,6 @@
 {
   "name": "@react-namespace/core",
+  "private": true,
   "version": "0.0.0",
   "license": "MIT",
   "exports": {
@@ -25,29 +26,17 @@
   },
   "devDependencies": {
     "@types/node": "^20.12.7",
-    "autoprefixer": "^10.4.19",
     "babel-jest": "29.5.0",
     "eslint": "^8.57.0",
     "jest-config": "workspace:*",
     "rollup-config": "workspace:*",
     "eslint-config-react-namespace": "workspace:*",
-    "postcss": "^8.4.38",
-    "sass": "^1.75.0",
     "ts-jest": "29.0.5",
     "tsconfig": "workspace:*"
   },
   "dependencies": {},
-  "peerDependencies": {
-    "react": "^18.0"
-  },
-  "peerDependenciesMeta": {
-    "@types/react": {
-      "optional": true
-    },
-    "@types/react-dom": {
-      "optional": true
-    }
-  },
+  "peerDependencies": {},
+  "peerDependenciesMeta": {},
   "publishConfig": {
     "access": "public",
     "exports": {
@@ -60,8 +49,7 @@
           "types": "./dist/types/index.d.ts",
           "default": "./dist/cjs/client/index.cjs"
         }
-      },
-      "./index.css": "./dist/es/client/index.css"
+      }
     },
     "source": "./src/index.ts",
     "main": "./dist/cjs/client/index.cjs",
