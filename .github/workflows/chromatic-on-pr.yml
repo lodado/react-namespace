@@ -1,0 +1,60 @@
+# .github/workflows/chromatic.yml
+
+name: "Chromatic-on-pr"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    outputs:
+      status: ${{ job.status }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.18.1
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install
+      
+      - name: build repositories
+        run: pnpm build --filter=\!web --filter=\!docs
+
+      - name: Publish to Chromatic
+        id: chromatic
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          workingDir: apps/docs
+          exitOnceUploaded: true
+
+      - name: Publish Storybook Link in the comments
+        uses: dannyhw/storybook-chromatic-link-comment@v0.10
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          review-url: ${{ steps.chromatic.outputs.url }}
+          build-url: ${{ steps.chromatic.outputs.buildUrl }}
+          storybook-url: ${{ steps.chromatic.outputs.storybookUrl }}

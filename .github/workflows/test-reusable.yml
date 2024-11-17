@@ -1,0 +1,35 @@
+name: 'Test Reusable Workflow'
+on:
+  workflow_call:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.18.1
+
+      - name: Install pnpm
+        run: npm install -g pnpm
+
+      - name: Cache pnpm modules
+        uses: actions/cache@v2
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build pnpm
+        run: pnpm run build
+
+      - name: Run tests
+        run: pnpm test

@@ -1,0 +1,22 @@
+name: Integrated Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+    branches:
+      - main
+      - dev
+
+jobs:
+  test:
+    uses: ./.github/workflows/test-reusable.yml
+    secrets: inherit
+  
+  
+#  storybook-deploy:
+#    needs: test
+#    uses: ./.github/workflows/chromatic-on-pr.yml
+#    secrets: inherit
