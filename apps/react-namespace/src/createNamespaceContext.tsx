@@ -6,12 +6,23 @@ import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
 import { useNamespaceExternalStores } from './hooks/useNamespaceExternalStores'
 import { StateOf } from './type'
 
+
+export type StoreOption<State extends Record<string | symbol, any>, StoreType extends NamespaceStore<State>> =
+  | {
+      localStore?: never
+      globalStore: (() => StoreType) | StoreType
+    }
+  | {
+      globalStore?: never
+      localStore: (() => StoreType) | StoreType
+    }
+
 export function createNamespaceContext<
   State extends Record<string | symbol, any>,
   StoreType extends NamespaceStore<State>,
->({ store }: { store: (() => StoreType) | StoreType }) {
+>({ globalStore: globalStoreDIP, localStore }: StoreOption<State, StoreType>) {
   const Context = createContext<StoreType | undefined>(undefined)
-  const storeBean = typeof store === 'function' ? store() : store
+  const globalStore = globalStoreDIP && typeof globalStoreDIP === 'function' ? globalStoreDIP() : globalStoreDIP
 
   // 서브클래스의 메서드 타입만 추출하는 유틸리티 타입
   type StoreMethodKeys = {
@@ -61,17 +72,20 @@ export function createNamespaceContext<
     return { ...value, ...useNamespaceAction() }
   }
 
-  const Provider: FC<{ store?: (() => StoreType) | StoreType; children: ReactNode }> = ({
-    store: overwriteStore,
+  const Provider: FC<{ overwriteStore?: (() => StoreType) | StoreType; children: ReactNode }> = ({
+    overwriteStore,
     children,
   }) => {
-    const value = useMemo(
-      () => (typeof overwriteStore === 'function' ? overwriteStore() : overwriteStore ?? storeBean),
+    const localStoreInstance = typeof localStore === 'function' ? localStore() : localStore
+
+    const namespaceInstance = useMemo(
+      () =>
+        typeof overwriteStore === 'function' ? overwriteStore() : overwriteStore ?? localStoreInstance ?? globalStore,
       [overwriteStore],
     )
 
-    return <Context.Provider value={value}>{children}</Context.Provider>
+    return <Context.Provider value={namespaceInstance}>{children}</Context.Provider>
   }
 
-  return { Context, Provider, store: storeBean, useNamespaceStores, useNamespaceAction } as const
+  return { Context, Provider, store: globalStore, useNamespaceStores, useNamespaceAction } as const
 }

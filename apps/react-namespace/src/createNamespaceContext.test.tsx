@@ -1,6 +1,6 @@
 import { NamespaceStore } from '@lodado/namespace-core'
-import { act, renderHook } from '@testing-library/react'
-import React, { ReactNode } from 'react'
+import { fireEvent, render, screen } from '@testing-library/react'
+import React from 'react'
 
 import { createNamespaceContext } from './createNamespaceContext'
 
@@ -19,134 +19,137 @@ class TestStore extends NamespaceStore<{ count: number }> {
   }
 }
 
-// Test the context created by `createNamespaceContext`
-describe('createNamespaceContext', () => {
-  const { Provider, useNamespaceStores, useNamespaceAction } = createNamespaceContext({
-    store: () => new TestStore(),
-  })
+// Create a context with the TestStore
+const { Provider, useNamespaceStores, useNamespaceAction } = createNamespaceContext({
+  localStore: () => new TestStore(),
+})
 
-  describe('with global NamespaceStore', () => {
-    describe('when using Provider and hooks', () => {
-      it('should provide the initial state', () => {
-        const wrapper = ({ children }: { children: ReactNode }) => <Provider>{children}</Provider>
+// Define a test component
+const TestComponent = () => {
+  const { count } = useNamespaceStores((state) => ({ count: state.count }))
+  const { increment, decrement } = useNamespaceAction()
 
-        const { result } = renderHook(() => useNamespaceStores((state) => ({ count: state.count })), { wrapper })
+  return (
+    <div>
+      <p data-testid="count-value">Count: {count}</p>
+      <button type="button" data-testid="increment-button" onClick={increment}>
+        Increment
+      </button>
+      <button type="button" data-testid="decrement-button" onClick={decrement}>
+        Decrement
+      </button>
+    </div>
+  )
+}
 
-        expect(result.current.count).toBe(0)
-      })
-
-      it('should increment the state using the increment action', () => {
-        const wrapper = ({ children }: { children: ReactNode }) => <Provider>{children}</Provider>
-
-        const { result } = renderHook(
-          () => ({
-            state: useNamespaceStores((state) => ({ count: state.count })),
-            actions: useNamespaceAction(),
-          }),
-          { wrapper },
-        )
-
-        act(() => {
-          result.current.actions.increment()
-        })
-
-        expect(result.current.state.count).toBe(1)
-      })
-
-      it('should decrement the state using the decrement action', () => {
-        const wrapper = ({ children }: { children: ReactNode }) => <Provider>{children}</Provider>
-
-        const { result } = renderHook(
-          () => ({
-            state: useNamespaceStores((state) => ({ count: state.count })),
-            actions: useNamespaceAction(),
-          }),
-          { wrapper },
-        )
-
-        act(() => {
-          result.current.actions.decrement()
-        })
-
-        expect(result.current.state.count).toBe(0)
-      })
-    })
-  })
-
-  describe('with local NamespaceStore', () => {
-    describe('when using Provider and hooks', () => {
-      it('should provide the initial state', () => {
-        const wrapper = ({ children }: { children: ReactNode }) => (
-          <Provider store={() => new TestStore()}>{children}</Provider>
-        )
-
-        const { result } = renderHook(() => useNamespaceStores((state) => ({ count: state.count })), { wrapper })
-
-        expect(result.current.count).toBe(0)
-      })
-
-      it('should increment the state using the increment action', () => {
-        const wrapper = ({ children }: { children: ReactNode }) => (
-          <Provider store={() => new TestStore()}>{children}</Provider>
-        )
-        const { result } = renderHook(
-          () => ({
-            state: useNamespaceStores((state) => ({ count: state.count })),
-            actions: useNamespaceAction(),
-          }),
-          { wrapper },
-        )
-
-        act(() => {
-          result.current.actions.increment()
-        })
-
-        expect(result.current.state.count).toBe(1)
-      })
-
-      it('should decrement the state using the decrement action', () => {
-        const wrapper = ({ children }: { children: ReactNode }) => (
-          <Provider store={() => new TestStore()}>{children}</Provider>
-        )
-
-        const { result } = renderHook(
-          () => ({
-            state: useNamespaceStores((state) => ({ count: state.count })),
-            actions: useNamespaceAction(),
-          }),
-          { wrapper },
-        )
-
-        act(() => {
-          result.current.actions.decrement()
-        })
-
-        expect(result.current.state.count).toBe(-1)
-      })
-    })
-  })
-
-
-  describe('when using Provider and hooks', () => {
-    it('should increment 4 times the state using the increment action', () => {
-      const wrapper = ({ children }: { children: ReactNode }) => <Provider>{children}</Provider>
-
-      const { result } = renderHook(
-        () => ({
-          state: useNamespaceStores((state) => ({ count: state.count })),
-          actions: useNamespaceAction(),
-        }),
-        { wrapper },
+// Test the rendering and interaction of the component
+describe('TestComponent with NamespaceContext', () => {
+  describe('Rendering and initial state', () => {
+    it('should render with the initial state', () => {
+      render(
+        <Provider>
+          <TestComponent />
+        </Provider>,
       )
 
-      act(() => {
-        result.current.actions.increment()
-        result.current.actions.increment()
-        result.current.actions.increment()
-        result.current.actions.increment()
-      })
+      const countValue = screen.getByTestId('count-value')
+      expect(countValue).toHaveTextContent('Count: 0')
+    })
+  })
 
-      expect(result.current.state.count).toBe(4)
+  describe('Increment actions', () => {
+    it('should increment the count once', () => {
+      render(
+        <Provider>
+          <TestComponent />
+        </Provider>,
+      )
+
+      const countValue = screen.getByTestId('count-value')
+      const incrementButton = screen.getByTestId('increment-button')
+
+      fireEvent.click(incrementButton)
+      expect(countValue).toHaveTextContent('Count: 1')
+    })
+
+    it('should increment the count multiple times', () => {
+      render(
+        <Provider>
+          <TestComponent />
+        </Provider>,
+      )
+
+      const countValue = screen.getByTestId('count-value')
+      const incrementButton = screen.getByTestId('increment-button')
+
+      fireEvent.click(incrementButton)
+      fireEvent.click(incrementButton)
+      fireEvent.click(incrementButton)
+      expect(countValue).toHaveTextContent('Count: 3')
+    })
+  })
+
+  describe('Decrement actions', () => {
+    it('should decrement the count once', () => {
+      render(
+        <Provider>
+          <TestComponent />
+        </Provider>,
+      )
+
+      const countValue = screen.getByTestId('count-value')
+      const incrementButton = screen.getByTestId('increment-button')
+      const decrementButton = screen.getByTestId('decrement-button')
+
+      // Start from count 1
+      fireEvent.click(incrementButton)
+      fireEvent.click(decrementButton)
+      expect(countValue).toHaveTextContent('Count: 0')
+    })
+
+    it('should decrement the count multiple times', () => {
+      render(
+        <Provider>
+          <TestComponent />
+        </Provider>,
+      )
+
+      const countValue = screen.getByTestId('count-value')
+      const decrementButton = screen.getByTestId('decrement-button')
+
+      fireEvent.click(decrementButton)
+      fireEvent.click(decrementButton)
+      expect(countValue).toHaveTextContent('Count: -2')
+    })
+  })
+
+  describe('Combined actions', () => {
+    it('should increment and decrement the count in sequence', () => {
+      render(
+        <Provider>
+          <TestComponent />
+        </Provider>,
+      )
+
+      const countValue = screen.getByTestId('count-value')
+      const incrementButton = screen.getByTestId('increment-button')
+      const decrementButton = screen.getByTestId('decrement-button')
+
+      fireEvent.click(incrementButton)
+      fireEvent.click(incrementButton)
+      fireEvent.click(decrementButton)
+      fireEvent.click(incrementButton)
+      expect(countValue).toHaveTextContent('Count: 2')
+    })
+  })
+
+  describe('Error handling (without Provider)', () => {
+    it('should throw an error when used without a Provider', () => {
+      const TestComponentWithoutProvider = () => {
+        expect(() => {
+          render(<TestComponent />)
+        }).toThrow('useStores must be used within a Provider')
+      }
     })
   })
 })

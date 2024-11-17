@@ -31,11 +31,11 @@ class Counter extends NamespaceStore<{ count: number; text: string }> {
 let cnt = 0
 
 const { Provider: ExampleProvider, useNamespaceStores } = createNamespaceContext({
-  store: new Counter(),
+  globalStore: new Counter(),
 })
 
 const { Provider: ExampleProvider2, useNamespaceStores: useNamespaceStores2 } = createNamespaceContext({
-  store: new Counter(),
+  globalStore: new Counter(),
 })
 
 const CountComponent = () => {
