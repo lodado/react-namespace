@@ -3,7 +3,7 @@ import { createNamespaceContext } from '@lodado/react-namespace'
 import { Meta } from '@storybook/react'
 
 const meta: Meta = {
-  title: 'createNamespaceContext/OneNamespace',
+  title: 'provider/OneNamespace',
 
   tags: ['autodocs'],
 }

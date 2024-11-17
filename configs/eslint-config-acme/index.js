@@ -18,6 +18,7 @@ module.exports = {
   ],
   plugins: ['jsx-a11y', 'prettier', 'simple-import-sort', 'import', 'local-rules'],
   rules: {
+    'no-underscore-dangle': 'off',
     'no-unused-vars': 'off',
     '@next/next/no-html-link-for-pages': 'off',
     'import/prefer-default-export': 'off',
