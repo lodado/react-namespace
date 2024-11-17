@@ -45,6 +45,7 @@ export function useNamespaceExternalStores<State extends Record<string, any>>(
         ;(snapshot as any)[key] = store.getState(key)
       })
 
+      // maybe i'll see this in the future for SSR
       if (
         isServerSide ||
         (!isRender && previousSnapshotRef.current && isEqual(snapshot, previousSnapshotRef.current))
