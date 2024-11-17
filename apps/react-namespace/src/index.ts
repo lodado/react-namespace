@@ -1,2 +1,2 @@
-export * from './NamespaceProvider'
+export * from './createNamespaceContext'
 export type * from './type'
