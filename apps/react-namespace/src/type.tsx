@@ -18,7 +18,7 @@ export type StoreOption<State extends Record<string | symbol, any>, StoreType ex
     }
   | {
       globalStore?: never
-      localStore: (() => StoreType) | StoreType
+      localStore: () => StoreType
     }
 
 export type StoreMethodKeys<StoreType> = {
