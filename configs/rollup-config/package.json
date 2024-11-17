@@ -5,8 +5,7 @@
   "main": "index.js",
   "license": "MIT",
   "publishConfig": {
-    "access": "public",
-    "registry": "http://192.168.1.75:8929/api/v4/projects/10/packages/npm/"
+    "access": "public"
   },
   "sideEffects": false,
   "devDependencies": {
