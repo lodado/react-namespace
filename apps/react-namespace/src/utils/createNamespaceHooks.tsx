@@ -1,3 +1,5 @@
+/* eslint-disable no-redeclare */
+
 'use client'
 
 import { NamespaceStore } from '@lodado/namespace-core'
@@ -8,15 +10,18 @@ import { StateOf, StoreActions } from '../type'
 export const createNamespaceHooks = <
   State extends Record<string | symbol, any>,
   StoreType extends NamespaceStore<State>,
-  PARAMS extends any = never,
+  PARAMS = never,
 >(
-  getContext: (params: PARAMS) => StoreType | undefined,
+  getContext: PARAMS extends never ? () => StoreType | undefined : (params: PARAMS) => StoreType | undefined,
 ) => {
-  const useNamespaceAction = (params?: PARAMS): StoreActions<StoreType, State> => {
-    const context = getContext(params!)
+  // Overload for useNamespaceAction
+  function useNamespaceAction(): StoreActions<StoreType, State>
+  function useNamespaceAction(params: PARAMS): StoreActions<StoreType, State>
+  function useNamespaceAction(params?: PARAMS): StoreActions<StoreType, State> {
+    const context = getContext(params as PARAMS)
 
     if (context === undefined) {
-      throw new Error('useStore must be used within a Provider')
+      throw new Error('useNamespaceAction must be used within a Provider')
     }
 
     const methods: Partial<StoreActions<StoreType, State>> = {}
@@ -36,19 +41,24 @@ export const createNamespaceHooks = <
     return methods as StoreActions<StoreType, State>
   }
 
-  const useNamespaceStores = (
+  // Overload for useNamespaceStores
+  function useNamespaceStores(
     selector: (state: StoreType['state']) => Partial<StoreType['state']>,
-    params?: PARAMS,
-  ) => {
-    const context = getContext(params!)
+  ): StateOf<StoreType['state']> & StoreActions<StoreType, State>
+  function useNamespaceStores(
+    selector: (state: StoreType['state']) => Partial<StoreType['state']>,
+    params: PARAMS,
+  ): StateOf<StoreType['state']> & StoreActions<StoreType, State>
+  function useNamespaceStores(selector: (state: StoreType['state']) => Partial<StoreType['state']>, params?: PARAMS) {
+    const context = getContext(params as PARAMS)
 
     if (context === undefined) {
-      throw new Error('useStores must be used within a Provider')
+      throw new Error('useNamespaceStores must be used within a Provider')
     }
 
     const value = useNamespaceExternalStores(context, selector) as StateOf<StoreType['state']>
 
-    return { ...value, ...useNamespaceAction(params) }
+    return { ...value, ...useNamespaceAction(params as PARAMS) }
   }
 
   return { useNamespaceStores, useNamespaceAction }
