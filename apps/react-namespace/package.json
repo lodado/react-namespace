@@ -1,7 +1,7 @@
 {
-  "name": "@lodado/namespace-core",
-  "sideEffects": false,
+  "name": "@lodado/react-namespace",
   "version": "0.0.0",
+  "sideEffects": false,
   "license": "MIT",
   "exports": {
     ".": {
@@ -19,24 +19,39 @@
   ],
   "scripts": {
     "test": "jest --passWithNoTests",
+    "storybok" : "",
     "build": "rollup -c && tsc --emitDeclarationOnly --declarationMap false --declaration --declarationDir dist/types",
     "lint": "eslint \"src/**/*.ts*\"",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",
     "manual-release": "pnpm run build && pnpm publish --no-git-checks"
   },
   "devDependencies": {
+    "@lodado/namespace-core": "workspace:*",
+    "@types/lodash-es": "^4.17.12",
     "@types/node": "^20.12.7",
+    "@types/react": "^18.3.12",
     "babel-jest": "29.5.0",
     "eslint": "^8.57.0",
+    "eslint-config-react-namespace": "workspace:*",
     "jest-config": "workspace:*",
     "rollup-config": "workspace:*",
-    "eslint-config-react-namespace": "workspace:*",
     "ts-jest": "29.0.5",
     "tsconfig": "workspace:*"
   },
-  "dependencies": {},
-  "peerDependencies": {},
-  "peerDependenciesMeta": {},
+  "dependencies": {
+    "lodash-es": "^4.17.21"
+  },
+  "peerDependencies": {
+    "react": "^18.0"
+  },
+  "peerDependenciesMeta": {
+    "@types/react": {
+      "optional": true
+    },
+    "@types/react-dom": {
+      "optional": true
+    }
+  },
   "publishConfig": {
     "access": "public",
     "exports": {

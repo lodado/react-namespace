@@ -24,7 +24,7 @@
   "scripts": {
     "prepare": "husky install",
     "create-new-project": "node ./generatePackages",
-    "storybook": "turbo run dev --no-cache --continue --filter=storybook-docs",
+    "storybook": "turbo run dev --no-cache --continue",
     "build": "turbo run build --concurrency=5 --filter=!storybook-docs",
     "build-storybook": "turbo run build  --filter=!storybook-docs && turbo run build-storybook  --concurrency=5",
     "clean": "turbo run clean && rm -rf node_modules",

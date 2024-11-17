@@ -1,5 +1,5 @@
 {
-  "name": "react-namespace-storybook-docs",
+  "name": "@lodado/react-namespace-storybook-docs",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -11,7 +11,8 @@
     "storybook": "storybook dev -p 6006"
   },
   "dependencies": {
-    "@react-namespace/core": "workspace:*",
+    "@lodado/react-namespace": "workspace:*",
+    "@lodado/namespace-core": "workspace:*",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

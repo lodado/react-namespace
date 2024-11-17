@@ -20,17 +20,8 @@ const preview = {
 
 export const decorators = [
   (Story: any) => {
-    const isDarkMode = useDarkMode();
-    useEffect(() => {
-      document.documentElement.setAttribute(
-        "data-theme",
-        isDarkMode ? "dark" : "light"
-      );
-      document.body.style.backgroundColor = isDarkMode ? "#000" : "#fff";
-    }, [isDarkMode]);
-
-    return <Story />;
+    return <Story />
   },
-];
+]
 
 export default preview;
