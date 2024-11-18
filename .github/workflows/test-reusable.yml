@@ -13,6 +13,8 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 18.19.0
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@lodado'
 
       - name: Install pnpm
         run: npm install -g pnpm
@@ -31,6 +33,10 @@ jobs:
       - name: Run tests
         run: pnpm test
 
-# TO DO - build
-#      - name: Build pnpm
-#        run: pnpm run build
+      - name: Setup npm authentication
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > .npmrc
+
+      - name: Run release
+        run: pnpm release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

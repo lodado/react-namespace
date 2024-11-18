@@ -49,4 +49,3 @@ apps/docs/build-storybook.log
 .parcel-cache
 
 **/*.css.map
-.changeset/*

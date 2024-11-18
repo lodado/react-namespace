@@ -1,6 +1,6 @@
 {
   "name": "@lodado/react-namespace",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "sideEffects": false,
   "license": "MIT",
   "exports": {
@@ -19,7 +19,6 @@
   ],
   "scripts": {
     "test": "jest --passWithNoTests",
-    "storybok" : "",
     "build": "rollup -c && tsc --emitDeclarationOnly --declarationMap false --declaration --declarationDir dist/types",
     "lint": "eslint \"src/**/*.ts*\"",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist",

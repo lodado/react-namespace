@@ -31,7 +31,7 @@
     "test": "turbo run test  --concurrency=5",
     "lint": "turbo run lint --concurrency=5 -- --cache --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "release": "turbo run build --filter=!storybook-docs && changeset version && changeset publish  --concurrency=5",
+    "release": "turbo run build --filter=!@lodado/react-namespace-storybook-docs && changeset version && changeset publish  --concurrency=5",
     "changeset": "changeset",
     "patch-notes": "changeset"
   },
