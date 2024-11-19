@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 0.1.2
+
+### Patch Changes
+
+- fix: reset function bug solved
+
 ## 0.1.1
 
 ### Patch Changes
