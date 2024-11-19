@@ -40,7 +40,7 @@ const { Provider: ExampleProvider2, useNamespaceStores: useNamespaceStores2 } = 
 
 const CountComponent = () => {
   // 키를 명시적으로 전달하지 않아도 selector에서 추출
-  const { count, increment, decrement } = useNamespaceStores((state) => {
+  const { count, increment, decrement, reset } = useNamespaceStores((state) => {
     return { count: state.count }
   })
 
@@ -52,6 +52,9 @@ const CountComponent = () => {
       </button>
       <button type="button" onClick={() => decrement()}>
         Decrement
+      </button>
+      <button type="button" onClick={() => reset()}>
+        reset{' '}
       </button>
     </div>
   )

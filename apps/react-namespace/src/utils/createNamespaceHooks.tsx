@@ -26,17 +26,32 @@ export const createNamespaceHooks = <
 
     const methods: Partial<StoreActions<StoreType, State>> = {}
 
+    // Get prototype of the context to access directly defined methods
     const subclassProto = Object.getPrototypeOf(context)
     const subclassMethods = Object.getOwnPropertyNames(subclassProto)
 
-    const methodsToBind = subclassMethods.filter((method) => method !== 'constructor')
+    // Filter out the constructor
+    const methodsToBind = subclassMethods.filter(
+      (method) => method !== 'constructor' && typeof (context as any)[method] === 'function',
+    )
 
+    // Bind each method to the context
     methodsToBind.forEach((key) => {
-      const value = (context as any)[key]
-      if (typeof value === 'function') {
-        methods[key as keyof StoreActions<StoreType, State>] = value.bind(context)
-      }
+      methods[key as keyof StoreActions<StoreType, State>] = (context as any)[key].bind(context)
     })
+
+    // Traverse the prototype chain to find 'reset' specifically if not already bound
+    if (!methods.reset) {
+      let proto = subclassProto
+      while (proto && proto !== Object.prototype) {
+        // Use Object.prototype.hasOwnProperty.call to avoid ESLint warning
+        if (Object.prototype.hasOwnProperty.call(proto, 'reset') && typeof proto.reset === 'function') {
+          methods.reset = proto.reset.bind(context)
+          break // Stop once we find 'reset'
+        }
+        proto = Object.getPrototypeOf(proto)
+      }
+    }
 
     return methods as StoreActions<StoreType, State>
   }

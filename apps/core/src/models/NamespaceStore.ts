@@ -20,7 +20,9 @@ export default class NamespaceStore<State extends Record<string | symbol, any>> 
   }
 
   reset() {
-    this.state = { ...this.initState }
+    Object.keys(this.initState).forEach((key) => {
+      this.state[key as keyof State] = this.initState[key]
+    })
   }
 
   setState<K extends keyof State>(key: K, value: State[K]) {

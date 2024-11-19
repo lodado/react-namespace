@@ -27,11 +27,14 @@ const { Provider, useNamespaceStores, useNamespaceAction } = createNamespaceCont
 // Define a test component
 const TestComponent = () => {
   const { count } = useNamespaceStores((state) => ({ count: state.count }))
-  const { increment, decrement } = useNamespaceAction()
+  const { increment, decrement, reset } = useNamespaceAction()
 
   return (
     <div>
       <p data-testid="count-value">Count: {count}</p>
+      <button type="button" data-testid="reset-button" onClick={reset}>
+        Reset
+      </button>
       <button type="button" data-testid="increment-button" onClick={increment}>
         Increment
       </button>
@@ -53,6 +56,26 @@ describe('TestComponent with NamespaceContext', () => {
       )
 
       const countValue = screen.getByTestId('count-value')
+      expect(countValue).toHaveTextContent('Count: 0')
+    })
+  })
+
+  describe('Reset actions', () => {
+    it('should increment the count once and Reset', () => {
+      render(
+        <Provider>
+          <TestComponent />
+        </Provider>,
+      )
+
+      const countValue = screen.getByTestId('count-value')
+      const incrementButton = screen.getByTestId('increment-button')
+      const resetButton = screen.getByTestId('reset-button')
+
+      fireEvent.click(incrementButton)
+      expect(countValue).toHaveTextContent('Count: 1')
+
+      fireEvent.click(resetButton)
       expect(countValue).toHaveTextContent('Count: 0')
     })
   })
