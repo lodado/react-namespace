@@ -1,6 +1,6 @@
 {
   "name": "@lodado/react-namespace",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "sideEffects": false,
   "license": "MIT",
   "exports": {
