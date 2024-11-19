@@ -57,6 +57,16 @@ describe('NamespaceStore', () => {
       })
     })
   })
+
+  describe('when calling reset', () => {
+    it('should reset the state to the initial state', () => {
+      const count = 10
+      namespaceStore.setState('count', count)
+      namespaceStore.reset()
+      const result = namespaceStore.getState('count')
+      expect(result).toBe(0)
+    })
+  })
 })
 
 class Counter extends NamespaceStore<{ count: number }> {

@@ -34,7 +34,7 @@ export type SubclassMethodKeys<StoreType, State extends Record<string | symbol, 
   SuperMethodKeys<State>
 >
 
-export type StoreActions<StoreType, State extends Record<string | symbol, any>> = Pick<
+export type StoreActions<StoreType, State extends Record<string | symbol, any>> = { reset: () => void } & Pick<
   StoreType,
   SubclassMethodKeys<StoreType, State>
 >

@@ -8,11 +8,19 @@ export default class NamespaceStore<State extends Record<string | symbol, any>> 
    */
   public state: ReturnType<typeof createStateProxy<State>>
 
+  protected initState: State
+
   private publisher: EventPublisher<State>
 
   constructor(initialState: State) {
     this.publisher = new EventPublisher<State>()
     this.state = createStateProxy(initialState, this.publisher)
+
+    this.initState = { ...initialState }
+  }
+
+  reset() {
+    this.state = { ...this.initState }
   }
 
   setState<K extends keyof State>(key: K, value: State[K]) {
