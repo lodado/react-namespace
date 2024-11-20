@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 0.1.3
+
+### Patch Changes
+
+- add useNamespaceContext
+
 ## 0.1.2
 
 ### Patch Changes
