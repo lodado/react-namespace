@@ -19,34 +19,36 @@ class TestStore extends NamespaceStore<{ count: number }> {
   }
 }
 
-// Create a context with the TestStore
-const { Provider, useNamespaceStores, useNamespaceAction } = createNamespaceContext({
-  localStore: () => new TestStore(),
-})
 
-// Define a test component
-const TestComponent = () => {
-  const { count } = useNamespaceStores((state) => ({ count: state.count }))
-  const { increment, decrement, reset } = useNamespaceAction()
-
-  return (
-    <div>
-      <p data-testid="count-value">Count: {count}</p>
-      <button type="button" data-testid="reset-button" onClick={reset}>
-        Reset
-      </button>
-      <button type="button" data-testid="increment-button" onClick={increment}>
-        Increment
-      </button>
-      <button type="button" data-testid="decrement-button" onClick={decrement}>
-        Decrement
-      </button>
-    </div>
-  )
-}
 
 // Test the rendering and interaction of the component
 describe('TestComponent with NamespaceContext', () => {
+  // Create a context with the TestStore
+  const { Provider, useNamespaceStores, useNamespaceAction } = createNamespaceContext({
+    localStore: () => new TestStore(),
+  })
+
+  // Define a test component
+  const TestComponent = () => {
+    const { count } = useNamespaceStores((state) => ({ count: state.count }))
+    const { increment, decrement, reset } = useNamespaceAction()
+
+    return (
+      <div>
+        <p data-testid="count-value">Count: {count}</p>
+        <button type="button" data-testid="reset-button" onClick={reset}>
+          Reset
+        </button>
+        <button type="button" data-testid="increment-button" onClick={increment}>
+          Increment
+        </button>
+        <button type="button" data-testid="decrement-button" onClick={decrement}>
+          Decrement
+        </button>
+      </div>
+    )
+  }
+
   describe('Rendering and initial state', () => {
     it('should render with the initial state', () => {
       render(
@@ -173,6 +175,42 @@ describe('TestComponent with NamespaceContext', () => {
           render(<TestComponent />)
         }).toThrow('useStores must be used within a Provider')
       }
+    })
+  })
+})
+
+describe('TestComponent with only overwriteStore', () => {
+  const { Provider, useNamespaceStores } = createNamespaceContext<TestStore['state'], TestStore>({})
+
+  const TestComponent2 = () => {
+    const { count, increment, decrement, reset } = useNamespaceStores((state) => ({ count: state.count }))
+
+    return (
+      <>
+        <p data-testid="count-value">Count: {count}</p>
+        <button type="button" data-testid="reset-button" onClick={reset}>
+          Reset
+        </button>
+        <button type="button" data-testid="increment-button" onClick={increment}>
+          Increment
+        </button>
+        <button type="button" data-testid="decrement-button" onClick={decrement}>
+          Decrement
+        </button>
+      </>
+    )
+  }
+
+  describe('Rendering and initial state', () => {
+    it('should render with the initial state', () => {
+      render(
+        <Provider overwriteStore={() => new TestStore()}>
+          <TestComponent2 />
+        </Provider>,
+      )
+
+      const countValue = screen.getByTestId('count-value')
+      expect(countValue).toHaveTextContent('Count: 0')
     })
   })
 })

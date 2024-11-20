@@ -149,7 +149,7 @@ describe('with local NamespaceStore', () => {
 })
 
 describe('with overwrite NamespaceStore', () => {
-  const { Provider, useNamespaceStores, useNamespaceAction } = createNamespaceContext({
+  const { Provider, useNamespaceStores, useNamespaceAction, useNamespaceContext } = createNamespaceContext({
     localStore: () => new TestStore({ count: 10 }),
   })
 
@@ -201,6 +201,25 @@ describe('with overwrite NamespaceStore', () => {
       })
 
       expect(result.current.state.count).toBe(-1)
+    })
+  })
+
+  describe('when using useNamespaceContext', () => {
+    it('should provide the correct context instance', () => {
+      const testStoreInstance = new TestStore({ count: 0 })
+
+      const wrapper = ({ children }: { children: ReactNode }) => (
+        <Provider overwriteStore={() => testStoreInstance}>{children}</Provider>
+      )
+
+      const { result } = renderHook(
+        () => ({
+          context: useNamespaceContext(),
+        }),
+        { wrapper },
+      )
+
+      expect(result.current.context).toBe(testStoreInstance)
     })
   })
 })

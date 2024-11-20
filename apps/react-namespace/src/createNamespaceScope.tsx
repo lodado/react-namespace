@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 import { NamespaceStore } from '@lodado/namespace-core'
+import { isNil } from 'lodash-es'
 import React, { Context, createContext, FC, ReactNode, useContext, useMemo } from 'react'
 
 import { createNamespaceContext } from './createNamespaceContext'
@@ -87,6 +88,8 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
         [overwriteStore],
       )
 
+      if (isNil(namespaceInstance)) throw new Error('namespaceNamespaceStore is null')
+
       return <Context.Provider value={namespaceInstance as StoreType}>{children}</Context.Provider>
     }
 
@@ -111,7 +114,6 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
       return createContext(defaultContext)
     })
     return function useScope(scope: Scope) {
-
       const contexts = scope?.[scopeName] || scopeContexts
       return useMemo(() => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }), [scope, contexts])
     }

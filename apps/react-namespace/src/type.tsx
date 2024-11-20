@@ -14,12 +14,17 @@ export type ActionsOf<T> = Pick<T, ActionKeys<T>>
 export type StoreOption<State extends Record<string | symbol, any>, StoreType extends NamespaceStore<State>> =
   | {
       localStore?: never
+      globalStore?: never
+    }
+  | {
+      localStore?: never
       globalStore: (() => StoreType) | StoreType
     }
   | {
       globalStore?: never
       localStore: () => StoreType
     }
+
 
 export type StoreMethodKeys<StoreType> = {
   [K in keyof StoreType]: StoreType[K] extends (...args: any[]) => any ? K : never

@@ -1,6 +1,7 @@
 'use client'
 
 import { NamespaceStore } from '@lodado/namespace-core'
+import { isNil } from 'lodash-es'
 import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
 
 import { StoreOption } from './type'
@@ -30,6 +31,8 @@ export function createNamespaceContext<
         typeof overwriteStore === 'function' ? overwriteStore() : overwriteStore ?? localStoreInstance ?? globalStore,
       [overwriteStore],
     )
+
+    if (isNil(namespaceInstance)) throw new Error('namespaceNamespaceStore is null')
 
     return <Context.Provider value={namespaceInstance}>{children}</Context.Provider>
   }
