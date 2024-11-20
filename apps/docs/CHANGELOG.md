@@ -1,5 +1,12 @@
 # @lodado/react-namespace-storybook-docs
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies
+  - @lodado/react-namespace@0.1.4
+
 ## 0.0.4
 
 ### Patch Changes

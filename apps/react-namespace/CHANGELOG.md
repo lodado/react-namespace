@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 0.1.4
+
+### Patch Changes
+
+- some bug fixes, localStore and globalStore are optional.
+
 ## 0.1.3
 
 ### Patch Changes
