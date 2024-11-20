@@ -40,20 +40,27 @@ useContext() always looks for the closest provider above the component that call
 
 <https://react.dev/reference/react/useContext#passing-data-deeply-into-the-tree>
 
-During development, I encountered situations where:
+When using React's Context API, the following issues can arise:
 
-1. Tabs nested within tabs needed to manipulate the state of the top-level tab.
-2. Tables nested within tables required control over the outermost table.
+- The entire tree wrapped by the context gets re-rendered.
+- Only the nearest parent context is accessible, making it difficult to manage when multiple contexts are nested.
 
-3. While building a design system, I wanted to address the issue of re-renders caused by state changes when using the Context API. However, other libraries felt too cumbersome to use.
-
-Inspired by Radix UI's concept of scopes ([Radix Context](https://github.com/radix-ui/primitives/tree/main/packages/react/context)), I aimed to create a global state library that:
+Inspired by the concept of "scope" introduced by the Radix UI library ([Radix Context](https://github.com/radix-ui/primitives/tree/main/packages/react/context)), I developed this library to address these challenges.
 
 - Provides a more flexible and scalable approach to state management.
 - Reduces unnecessary re-renders.
 - Simplifies implementation for deeply nested components.
 
-These use cases caused significant challenges and motivated me to create this library.
+### Main purpose
+
+The main purpose of this library is not so much for global state management (although it can be used that way too!) but rather for managing state in a flexible, simple, and efficient manner when developing component-based applications, much like its name 'namespace' suggests.
+
+It is recommended for use in the following cases:
+
+- Developing design system components (I use it with radix-ui)
+- Large and complex components such as features, widgets, and pages in the FSD architecture, or organisms in the atomic design pattern
+- Recursive structures like nested tabs, especially when there is a need to manipulate them mutually
+- When external components need to manipulate the state within a context
 
 ## Installation
 
@@ -373,7 +380,6 @@ export const ScopeExample = () => {
 
   return (
     <>
-      {/*"Does this seem crazy? The requirements at my workplace are quite similar to this!"*/}
       <AlertDialogProvider scope={scope.__scopeAlertDialog}>
         <AlertDialogProvider scope={scope2.__scopeAlertDialog}>
           <DialogProvider scope={scope2.__scopeAlertDialog}>
@@ -474,6 +480,31 @@ const {
 <ComposedProvider>
   <YourComponent />
 </ComposedProvider>;
+```
+
+### reset State
+
+you can reset states with reset function in useNamespaceAction or useNamespaceStores
+
+```jsx
+const TestComponent = () => {
+  const { count } = useNamespaceStores((state) => ({ count: state.count }))
+  const { increment, decrement, reset } = useNamespaceAction()
+
+  return (
+    <div>
+      <button type="button" data-testid="reset-button" onClick={reset}>
+        Reset
+      </button>
+      <button type="button" data-testid="increment-button" onClick={increment}>
+        Increment
+      </button>
+      <button type="button" data-testid="decrement-button" onClick={decrement}>
+        Decrement
+      </button>
+    </div>
+  )
+}
 ```
 
 ## License
