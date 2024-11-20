@@ -76,5 +76,17 @@ export const createNamespaceHooks = <
     return { ...value, ...useNamespaceAction(params as PARAMS) }
   }
 
-  return { useNamespaceStores, useNamespaceAction }
+  function useNamespaceContext(): StoreType | undefined
+  function useNamespaceContext(params: PARAMS): StoreType | undefined
+  function useNamespaceContext(params?: PARAMS): StoreType | undefined {
+    const context = getContext(params as PARAMS)
+
+    if (context === undefined) {
+      throw new Error('useNamespaceContext must be used within a Provider')
+    }
+
+    return context
+  }
+
+  return { useNamespaceStores, useNamespaceAction, useNamespaceContext }
 }

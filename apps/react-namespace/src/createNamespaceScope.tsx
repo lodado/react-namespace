@@ -92,16 +92,18 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
 
     Provider.displayName = `${rootComponentName}Provider`
 
-    const { useNamespaceStores } = createNamespaceHooks<StoreType['state'], StoreType, Scope<StoreType | undefined>>(
-      (scope: Scope<StoreType | undefined>) => {
-        const Context = scope?.[scopeName]?.[index] || BaseContext
-        const context = useContext(Context)
+    const { useNamespaceStores, useNamespaceContext } = createNamespaceHooks<
+      StoreType['state'],
+      StoreType,
+      Scope<StoreType | undefined>
+    >((scope: Scope<StoreType | undefined>) => {
+      const Context = scope?.[scopeName]?.[index] || BaseContext
+      const context = useContext(Context)
 
-        return context
-      },
-    )
+      return context
+    })
 
-    return [Provider, useNamespaceStores] as const
+    return [Provider, useNamespaceStores, useNamespaceContext] as const
   }
 
   const createScope: CreateScope = () => {

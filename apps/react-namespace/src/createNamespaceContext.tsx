@@ -13,9 +13,11 @@ export function createNamespaceContext<
   const Context = createContext<StoreType | undefined>(undefined)
   const globalStore = globalStoreDIP && typeof globalStoreDIP === 'function' ? globalStoreDIP() : globalStoreDIP
 
-  const { useNamespaceStores, useNamespaceAction } = createNamespaceHooks<State, StoreType, undefined>(() =>
-    useContext(Context),
-  )
+  const { useNamespaceStores, useNamespaceAction, useNamespaceContext } = createNamespaceHooks<
+    State,
+    StoreType,
+    undefined
+  >(() => useContext(Context))
 
   const Provider: FC<{ overwriteStore?: (() => StoreType) | StoreType; children: ReactNode }> = ({
     overwriteStore,
@@ -32,5 +34,5 @@ export function createNamespaceContext<
     return <Context.Provider value={namespaceInstance}>{children}</Context.Provider>
   }
 
-  return { Context, Provider, store: globalStore, useNamespaceStores, useNamespaceAction } as const
+  return { Context, Provider, store: globalStore, useNamespaceStores, useNamespaceAction, useNamespaceContext } as const
 }
