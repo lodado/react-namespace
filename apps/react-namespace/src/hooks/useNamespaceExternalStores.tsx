@@ -14,11 +14,12 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useSyncExternalStore }
  */
 export function useNamespaceExternalStores<State extends Record<string, any>>(
   store: NamespaceStore<State>,
-  selector: (state: State) => Partial<State>,
+  selector?: (state: State) => Partial<State>,
 ) {
   // Use a proxy or tracking mechanism to track accessed keys
   const { state } = store
-  const selectedState = selector(state)
+
+  const selectedState = selector?.(state) ?? []
   const previousSnapshotRef = useRef<Partial<State> | null>(null)
 
   let isRender = true
