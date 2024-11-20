@@ -56,13 +56,16 @@ export const createNamespaceHooks = <
     return methods as StoreActions<StoreType, State>
   }
 
-  // Overload for useNamespaceStores with selector and optional params
-  function useNamespaceStores(): StoreActions<StoreType, State>
+
   function useNamespaceStores(
     selector: (state: State) => Partial<State>,
   ): StateOf<State> & StoreActions<StoreType, State>
-  function useNamespaceStores(selector?: (state: State) => Partial<State>, params?: PARAMS): any {
-    const context = getContext(params!)
+  function useNamespaceStores(
+    selector: (state: State) => Partial<State>,
+    params: PARAMS,
+  ): StateOf<State> & StoreActions<StoreType, State>
+  function useNamespaceStores(selector: (state: State) => Partial<State>, params?: PARAMS) {
+    const context = getContext(params as PARAMS)
 
     if (context === undefined) {
       throw new Error('useNamespaceStores must be used within a Provider')
@@ -70,7 +73,7 @@ export const createNamespaceHooks = <
 
     const value = useNamespaceExternalStores(context, selector) as StateOf<State>
 
-    return { ...value, ...useNamespaceAction(params!) }
+    return { ...value, ...useNamespaceAction(params as PARAMS) }
   }
 
   return { useNamespaceStores, useNamespaceAction }

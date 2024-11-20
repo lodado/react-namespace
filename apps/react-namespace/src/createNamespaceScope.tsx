@@ -109,6 +109,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
       return createContext(defaultContext)
     })
     return function useScope(scope: Scope) {
+
       const contexts = scope?.[scopeName] || scopeContexts
       return useMemo(() => ({ [`__scope${scopeName}`]: { ...scope, [scopeName]: contexts } }), [scope, contexts])
     }
