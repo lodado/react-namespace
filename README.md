@@ -224,7 +224,8 @@ function createNamespaceContext<
   }>;
   readonly store: StoreType | undefined;
   readonly useNamespaceStores: () => { state: State };
-  readonly useNamespaceAction: () => StoreType;
+  readonly useNamespaceAction: () => StoreType; // context functions 
+  readonly useNamespaceContext: () => StoreType // "context"
 };
 ```
 
@@ -336,13 +337,13 @@ class Text extends NamespaceStore<{ text: string }> {
 }
 
 const [createDialogContext, createDialogScope] = createNamespaceScope('Dialog')
-const [DialogProvider, useDialogNamespaceStore] = createDialogContext('Dialog', {
+const { Provider: DialogProvider, useNamespaceStores: useDialogNamespaceStore } = createDialogContext('Dialog', {
   localStore: () => new Counter(),
 })
 
 const [createAlertDialogProvider, createAlertDialogScope] = createNamespaceScope('AlertDialog', [createDialogScope])
 
-const [AlertDialogProvider, useAlertDialogNamespaceStore] = createAlertDialogProvider('AlertDialog', {
+const { Provider: AlertDialogProvider, useNamespaceStores: useAlertDialogNamespaceStore } = createAlertDialogProvider('AlertDialog', {
   localStore: () => new Text(),
 })
 
@@ -505,6 +506,18 @@ const TestComponent = () => {
     </div>
   )
 }
+```
+
+### use "Context" value
+
+you can use literally "context" class instance via useNamespaceContext
+
+```jsx
+
+  const TestComponent = () => {
+    const context = useNamespaceContext()
+    ...
+  }
 ```
 
 ## License
