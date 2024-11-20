@@ -37,15 +37,21 @@ class Text extends NamespaceStore<{ text: string }> {
 }
 
 const [createDialogContext, createDialogScope] = createNamespaceScope('Dialog')
-const [DialogProvider, useDialogNamespaceStore] = createDialogContext('Dialog', {
+
+const { Provider: DialogProvider, useNamespaceStores: useDialogNamespaceStore } = createDialogContext('Dialog', {
   localStore: () => new Counter(),
 })
 
+
+
 const [createAlertDialogProvider, createAlertDialogScope] = createNamespaceScope('AlertDialog', [createDialogScope])
 
-const [AlertDialogProvider, useAlertDialogNamespaceStore] = createAlertDialogProvider('AlertDialog', {
-  localStore: () => new Text(),
-})
+const { Provider: AlertDialogProvider, useNamespaceStores: useAlertDialogNamespaceStore } = createAlertDialogProvider(
+  'AlertDialog',
+  {
+    localStore: () => new Text(),
+  },
+)
 
 const alertDialogScope = createAlertDialogScope()
 const alertDialogScope2 = createAlertDialogScope()

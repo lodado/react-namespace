@@ -21,7 +21,7 @@ class Counter extends NamespaceStore<{ count: number }> {
 describe('createNamespaceScope', () => {
   const [createTestContext, createTestScope] = createNamespaceScope('TestScope')
 
-  const [TestProvider, useTestNamespaceStore] = createTestContext('TestScope', {
+  const { Provider: TestProvider, useNamespaceStores: useTestNamespaceStore } = createTestContext('TestScope', {
     localStore: () => new Counter(0),
   })
 

@@ -103,7 +103,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
       return context
     })
 
-    return [Provider, useNamespaceStores, useNamespaceContext] as const
+    return { Provider, useNamespaceStores, useNamespaceContext }
   }
 
   const createScope: CreateScope = () => {
