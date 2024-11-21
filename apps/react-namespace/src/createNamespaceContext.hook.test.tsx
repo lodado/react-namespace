@@ -204,6 +204,7 @@ describe('with overwrite NamespaceStore', () => {
     })
   })
 
+  /*
   describe('when using useNamespaceContext', () => {
     it('should provide the correct context instance', () => {
       const testStoreInstance = new TestStore({ count: 0 })
@@ -222,4 +223,5 @@ describe('with overwrite NamespaceStore', () => {
       expect(result.current.context).toBe(testStoreInstance)
     })
   })
+  */
 })

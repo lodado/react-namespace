@@ -3,6 +3,7 @@
 'use client'
 
 import { NamespaceStore } from '@lodado/namespace-core'
+import { Context, useContext } from 'react'
 
 import { useNamespaceExternalStores } from '../hooks/useNamespaceExternalStores'
 import { StateOf, StoreActions } from '../type'
@@ -56,7 +57,6 @@ export const createNamespaceHooks = <
     return methods as StoreActions<StoreType, State>
   }
 
-
   function useNamespaceStores(
     selector: (state: State) => Partial<State>,
   ): StateOf<State> & StoreActions<StoreType, State>
@@ -85,7 +85,7 @@ export const createNamespaceHooks = <
       throw new Error('useNamespaceContext must be used within a Provider')
     }
 
-    return context
+    return context as StoreType
   }
 
   return { useNamespaceStores, useNamespaceAction, useNamespaceContext }

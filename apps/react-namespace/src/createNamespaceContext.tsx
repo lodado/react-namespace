@@ -20,7 +20,7 @@ export function createNamespaceContext<
     undefined
   >(() => useContext(Context))
 
-  const Provider: FC<{ overwriteStore?: (() => StoreType) | StoreType; children: ReactNode }> = ({
+  const Provider: FC<{ overwriteStore?: (() => StoreType) | StoreType; children?: ReactNode }> = ({
     overwriteStore,
     children,
   }) => {

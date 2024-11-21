@@ -75,7 +75,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
     const Provider: FC<{
       scope: Scope<StoreType>
       overwriteStore?: () => StoreType | StoreType
-      children: ReactNode
+      children?: ReactNode
     }> = (props) => {
       const { scope, overwriteStore, children } = props
       const Context = scope?.[scopeName]?.[index] || BaseContext
@@ -101,6 +101,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
       Scope<StoreType | undefined>
     >((scope: Scope<StoreType | undefined>) => {
       const Context = scope?.[scopeName]?.[index] || BaseContext
+
       const context = useContext(Context)
 
       return context

@@ -1,7 +1,8 @@
 import { NamespaceStore } from '@lodado/namespace-core'
-import { createNamespaceScope } from '@lodado/react-namespace'
 import { fireEvent, render, screen } from '@testing-library/react'
 import React, { PropsWithChildren } from 'react'
+
+import { createNamespaceScope } from './createNamespaceScope'
 
 // Mocked Store for Testing
 class Counter extends NamespaceStore<{ count: number }> {
