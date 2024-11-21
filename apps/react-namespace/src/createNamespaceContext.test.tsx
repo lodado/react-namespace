@@ -180,7 +180,7 @@ describe('TestComponent with NamespaceContext', () => {
 })
 
 describe('TestComponent with only overwriteStore', () => {
-  const { Provider, useNamespaceStores } = createNamespaceContext<TestStore['state'], TestStore>({})
+  const { Provider, useNamespaceStores } = createNamespaceContext<TestStore>({})
 
   const TestComponent2 = () => {
     const { count, increment, decrement, reset } = useNamespaceStores((state) => ({ count: state.count }))

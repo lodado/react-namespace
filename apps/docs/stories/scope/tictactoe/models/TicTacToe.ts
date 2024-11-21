@@ -6,6 +6,7 @@ import { NamespaceStore } from '@lodado/namespace-core'
 export default class TicTacToe extends NamespaceStore<{
   board: (string | null)[][]
   winner: string | 'Draw' | null
+  turn: number
 }> {
   constructor() {
     super({
@@ -13,6 +14,7 @@ export default class TicTacToe extends NamespaceStore<{
         .fill(null)
         .map(() => Array(3).fill(null)),
       winner: null,
+      turn: 0,
     })
   }
 
@@ -45,16 +47,18 @@ export default class TicTacToe extends NamespaceStore<{
 
     this.state.board[row][col] = icon
     this.checkWinner(icon)
+    this.state.turn += 1
+  }
+
+  updateTurn(): void {
+    this.state.turn += 1
   }
 
   /**
    * Reset the game to its initial state.
    */
   reset(): void {
-    this.state.board = Array(3)
-      .fill(null)
-      .map(() => Array(3).fill(null))
-    this.state.winner = null
+    this.reset()
   }
 
   /**

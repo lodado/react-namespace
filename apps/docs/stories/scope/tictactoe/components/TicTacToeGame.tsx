@@ -1,28 +1,26 @@
-import { Scope } from '@lodado/react-namespace'
-import { useCallback, useMemo, useState } from 'react'
-
-import TicTacToe from '../models/TicTacToe'
 import { TicTacToeUseCase } from '../models/TicTacToeUsecase'
-import { useBoardContext, useRepositoryContext } from './Provider'
+import { useBoardNamespaceContext, useBoardNamespaceStores, useRepositoryContext, useScopeContainer } from './Provider'
 
-const TicTacToeGame = ({ player1Scope, player2Scope }: { player1Scope: Scope<any>; player2Scope: Scope<any> }) => {
-  const [turn, setTurn] = useState(0)
+const TicTacToeGame = () => {
+  const { user1: player1Scope, user2: player2Scope } = useScopeContainer()
+
+  const { turn, board } = useBoardNamespaceStores((state) => {
+    return { turn: state.turn, board: state.board }
+  })
 
   // you can swap scope whatever you want
   const currentUserScope = turn % 2 === 0 ? player1Scope : player2Scope
 
-  const game = useBoardContext()!
-  const repository = useRepositoryContext(currentUserScope)!
+  const game = useBoardNamespaceContext()!
+  const repository = useRepositoryContext(currentUserScope.__scopeTicTacToeRepository)!
   const useCase = new TicTacToeUseCase(game, repository)
 
   const handleMove = async (row: number, col: number) => {
     await useCase.play({ row, col })
-    setTurn(turn + 1)
   }
 
   const resetGame = async () => {
     await useCase.resetGame()
-    setTurn(turn + 1)
   }
 
   return (
@@ -32,7 +30,7 @@ const TicTacToeGame = ({ player1Scope, player2Scope }: { player1Scope: Scope<any
 
       {game.getWinner() && <p>Winner: {game.getWinner()}</p>}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 100px)' }}>
-        {game.getBoard().map((row, rowIndex) =>
+        {board.map((row, rowIndex) =>
           row.map((cell, colIndex) => (
             <button
               type="button"

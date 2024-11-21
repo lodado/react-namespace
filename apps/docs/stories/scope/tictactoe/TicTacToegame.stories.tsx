@@ -1,6 +1,6 @@
 /* eslint-disable max-classes-per-file */
 
-import { App } from './App'
+import { TicTacToeExample } from './App'
 
 const meta = {
   title: 'scope/TicTacToeExample',
@@ -12,5 +12,5 @@ const meta = {
 export default meta
 
 export const Example = () => {
-  return <App />
+  return <TicTacToeExample />
 }

@@ -7,15 +7,15 @@ import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
 import { StoreOption } from './type'
 import { createNamespaceHooks } from './utils/createNamespaceHooks'
 
-export function createNamespaceContext<
-  State extends Record<string | symbol, any>,
-  StoreType extends NamespaceStore<State>,
->({ globalStore: globalStoreDIP, localStore }: StoreOption<State, StoreType>) {
+export function createNamespaceContext<StoreType extends NamespaceStore<Record<string | symbol, any>>>({
+  globalStore: globalStoreDIP,
+  localStore,
+}: StoreOption<StoreType['state'], StoreType>) {
   const Context = createContext<StoreType | undefined>(undefined)
   const globalStore = globalStoreDIP && typeof globalStoreDIP === 'function' ? globalStoreDIP() : globalStoreDIP
 
   const { useNamespaceStores, useNamespaceAction, useNamespaceContext } = createNamespaceHooks<
-    State,
+    StoreType['state'],
     StoreType,
     undefined
   >(() => useContext(Context))

@@ -1,18 +1,11 @@
 /* eslint-disable no-shadow */
 import { NamespaceStore } from '@lodado/namespace-core'
 import { isNil } from 'lodash-es'
-import React, { Context, createContext, FC, ReactNode, useContext, useMemo } from 'react'
+import { createContext, FC, ReactNode, useContext, useMemo } from 'react'
 
 import { createNamespaceContext } from './createNamespaceContext'
-import { StoreOption } from './type'
+import { CreateScope, Scope, StoreOption } from './type'
 import { createNamespaceHooks } from './utils/createNamespaceHooks'
-
-export type Scope<C = any> = { [scopeName: string]: Context<C>[] } | undefined
-export type ScopeHook = (scope: Scope) => { [__scopeProp: string]: Scope }
-export interface CreateScope {
-  scopeName: string
-  (): ScopeHook
-}
 
 export function composeContextScopes(...scopes: CreateScope[]) {
   const baseScope = scopes[0]

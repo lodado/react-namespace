@@ -3,7 +3,6 @@
 'use client'
 
 import { NamespaceStore } from '@lodado/namespace-core'
-import { Context, useContext } from 'react'
 
 import { useNamespaceExternalStores } from '../hooks/useNamespaceExternalStores'
 import { StateOf, StoreActions } from '../type'
