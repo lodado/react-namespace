@@ -14,4 +14,3 @@ const ESTIMATED_SIZE = 1024
 window.Element.prototype.getBoundingClientRect = () => {
   return { height: ESTIMATED_SIZE, width: ESTIMATED_SIZE }
 }
-

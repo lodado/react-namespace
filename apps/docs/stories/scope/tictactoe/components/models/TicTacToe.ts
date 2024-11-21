@@ -55,13 +55,6 @@ export default class TicTacToe extends NamespaceStore<{
   }
 
   /**
-   * Reset the game to its initial state.
-   */
-  reset(): void {
-    this.reset()
-  }
-
-  /**
    * Check if there's a winner or if the game is a draw.
    */
   private checkWinner(icon: string): void {

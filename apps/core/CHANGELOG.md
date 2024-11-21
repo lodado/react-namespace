@@ -1,5 +1,11 @@
 # @lodado/namespace-core
 
+## 0.1.3
+
+### Patch Changes
+
+- feat: add deepcopy for reset function
+
 ## 0.1.2
 
 ### Patch Changes

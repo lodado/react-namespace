@@ -12,16 +12,23 @@ export default class NamespaceStore<State extends Record<string | symbol, any>> 
 
   private publisher: EventPublisher<State>
 
+  protected deepClone(value: any) {
+    // @ts-ignore
+    return global.structuredClone ? structuredClone?.(value) : JSON.parse(JSON.stringify(value))
+  }
+
   constructor(initialState: State) {
+    this.initState = this.deepClone(initialState)
+
     this.publisher = new EventPublisher<State>()
     this.state = createStateProxy(initialState, this.publisher)
-
-    this.initState = { ...initialState }
   }
 
   reset() {
-    Object.keys(this.initState).forEach((key) => {
-      this.state[key as keyof State] = this.initState[key]
+    const deepCopiedState = this.deepClone(this.initState)
+
+    Object.keys(deepCopiedState).forEach((key) => {
+      this.state[key as keyof State] = deepCopiedState[key]
     })
   }
 
