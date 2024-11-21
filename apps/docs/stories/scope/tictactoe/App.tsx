@@ -1,6 +1,8 @@
 import { ComposeProviders } from '@lodado/react-namespace'
 import { useCallback } from 'react'
 
+import PlayerRepository from './components/models/PlayerRepository'
+import TicTacToe from './components/models/TicTacToe'
 import {
   BoardProvider,
   createUser1Scope,
@@ -9,8 +11,6 @@ import {
   ScopeContainerProvider,
 } from './components/Provider'
 import TicTacToeGame from './components/TicTacToeGame'
-import PlayerRepository from './models/PlayerRepository'
-import TicTacToe from './models/TicTacToe'
 
 export const TicTacToeExample = () => {
   const game = useCallback(() => new TicTacToe(), [])
