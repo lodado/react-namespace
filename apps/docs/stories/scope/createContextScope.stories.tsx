@@ -42,8 +42,6 @@ const { Provider: DialogProvider, useNamespaceStores: useDialogNamespaceStore } 
   localStore: () => new Counter(),
 })
 
-
-
 const [createAlertDialogProvider, createAlertDialogScope] = createNamespaceScope('AlertDialog', [createDialogScope])
 
 const { Provider: AlertDialogProvider, useNamespaceStores: useAlertDialogNamespaceStore } = createAlertDialogProvider(
