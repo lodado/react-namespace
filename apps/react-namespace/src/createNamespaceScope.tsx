@@ -51,8 +51,8 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
    * @template StoreType - The type of the namespace store.
    * @param {string} rootComponentName - The name of the root component.
    * @param store - A function that returns the store or the store itself.  If it's not a function, it's shared globally.
-   * @returns {[Provider, useNamespaceStore]} - A tuple containing the Provider component and the useNamespaceStore hook.
-   */
+   * @returns The Provider component and the useNamespaceStore hook.
+   *    */
   function createScopeContext<StoreType extends NamespaceStore<Record<string | symbol, any>>>(
     rootComponentName: string,
     { globalStore, localStore }: StoreOption<StoreType['state'], StoreType>,

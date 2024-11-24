@@ -22,7 +22,7 @@ export function useNamespaceExternalStores<State extends Record<string, any>>(
   const selectedState = selector?.(state) ?? []
   const previousSnapshotRef = useRef<Partial<State> | null>(null)
 
-  let isRender = true
+  let isRender = false
 
   /**
    *  Allow zero keys
@@ -47,10 +47,7 @@ export function useNamespaceExternalStores<State extends Record<string, any>>(
       })
 
       // maybe i'll see this in the future for SSR
-      if (
-        isServerSide ||
-        (!isRender && previousSnapshotRef.current && isEqual(snapshot, previousSnapshotRef.current))
-      ) {
+      if (!isServerSide && isRender && previousSnapshotRef.current && isEqual(snapshot, previousSnapshotRef.current)) {
         // Return the previous snapshot to maintain reference equality
         return previousSnapshotRef.current
       }
@@ -58,7 +55,7 @@ export function useNamespaceExternalStores<State extends Record<string, any>>(
       // Update the reference and return the new snapshot
       previousSnapshotRef.current = snapshot
 
-      isRender = false
+      isRender = true
       return snapshot
     }
 

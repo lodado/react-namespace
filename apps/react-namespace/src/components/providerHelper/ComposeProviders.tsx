@@ -7,7 +7,7 @@ export type ComposeProvidersProps = {
   children: ReactNode
 }
 
-const ComposeProviders: React.FC<ComposeProvidersProps> = ({ providers, children }) => {
+const ComposeProviders = ({ providers, children }: ComposeProvidersProps): ReactElement => {
   return providers.reduceRight((acc, provider) => {
     if (!isValidElement(provider)) {
       throw new Error('Each provider must be a valid React element.')
@@ -15,7 +15,7 @@ const ComposeProviders: React.FC<ComposeProvidersProps> = ({ providers, children
 
     // provider에 children 추가
     return cloneElement(provider, {}, acc)
-  }, children)
+  }, children!) as ReactElement
 }
 
 export default ComposeProviders
