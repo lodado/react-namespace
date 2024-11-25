@@ -1,5 +1,19 @@
 # @lodado/react-namespace
 
+## 0.1.8
+
+### Patch Changes
+
+- Updated dependencies
+  - @lodado/namespace-core@0.1.5
+
+## 0.1.7
+
+### Patch Changes
+
+- Updated dependencies
+  - @lodado/namespace-core@0.1.4
+
 ## 0.1.6
 
 ### Patch Changes

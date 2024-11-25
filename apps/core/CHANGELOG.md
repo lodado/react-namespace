@@ -1,5 +1,17 @@
 # @lodado/namespace-core
 
+## 0.1.5
+
+### Patch Changes
+
+- deepClone bug fixed
+
+## 0.1.4
+
+### Patch Changes
+
+- deep clone global bug fixed
+
 ## 0.1.3
 
 ### Patch Changes
