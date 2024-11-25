@@ -32,6 +32,8 @@
   "devDependencies": {
     "@playwright/test": "^1.49.0",
     "@types/node": "^20.12.7",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.19",
     "babel-jest": "29.5.0",
     "eslint": "^8.57.0",
@@ -41,11 +43,11 @@
     "rollup-config": "workspace:*",
     "sass": "^1.75.0",
     "ts-jest": "29.0.5",
-    "tsconfig": "workspace:*",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1"
+    "tsconfig": "workspace:*"
   },
   "dependencies": {
+    "@lodado/namespace-core": "workspace:*",
+    "@lodado/react-namespace": "workspace:*",
     "next": "14.2.11",
     "react": "^18.0",
     "react-dom": "^18"

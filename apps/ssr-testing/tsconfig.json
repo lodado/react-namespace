@@ -19,7 +19,7 @@
     "**/*.ts",
     "**/*.ts",
     ".next/types/**/*.ts"
-  ],
+, "src/components/CounterExample.tsx"  ],
   "exclude": [
     "dist",
     "build",

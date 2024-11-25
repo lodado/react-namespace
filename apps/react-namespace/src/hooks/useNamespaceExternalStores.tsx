@@ -2,7 +2,7 @@
 
 import { NamespaceStore } from '@lodado/namespace-core'
 import { isEqual } from 'lodash-es'
-import { useCallback, useDebugValue, useEffect, useLayoutEffect, useRef, useSyncExternalStore } from 'react'
+import { useCallback, useDebugValue, useEffect, useLayoutEffect, useMemo, useRef, useSyncExternalStore } from 'react'
 
 /**
  * Custom hook that allows accessing and subscribing to selected state values from a NamespaceStore.
@@ -38,32 +38,34 @@ export function useNamespaceExternalStores<State extends Record<string, any>>(
     [store],
   )
 
-  const getSnapshot =
-    ({ isServerSide }: { isServerSide: boolean }) =>
-    () => {
-      const snapshot = {} as Partial<State> // Cast State to Partial<State>
-      keys.forEach((key) => {
-        ;(snapshot as any)[key] = store.getState(key)
-      })
+  const getSnapshot = useCallback(() => {
+    const snapshot = {} as Partial<State>
+    keys.forEach((key) => {
+      ;(snapshot as any)[key] = store.getState(key)
+    })
 
-      // maybe i'll see this in the future for SSR
-      if (!isServerSide && isRender && previousSnapshotRef.current && isEqual(snapshot, previousSnapshotRef.current)) {
-        // Return the previous snapshot to maintain reference equality
-        return previousSnapshotRef.current
-      }
-
-      // Update the reference and return the new snapshot
-      previousSnapshotRef.current = snapshot
-
-      isRender = true
-      return snapshot
+    if (isRender && previousSnapshotRef.current && isEqual(snapshot, previousSnapshotRef.current)) {
+      // Return the previous snapshot to maintain reference equality
+      return previousSnapshotRef.current
     }
 
-  const lastSnapshot = useSyncExternalStore(
-    subscribe,
-    getSnapshot({ isServerSide: false }),
-    getSnapshot({ isServerSide: true }),
-  )
+    // Update the reference and return the new snapshot
+    previousSnapshotRef.current = snapshot
+    isRender = true
+
+    return snapshot
+  }, [...keys, store])
+
+  const getServerSnapshot = useMemo(() => {
+    const snapshot = {} as Partial<State>
+    keys.forEach((key) => {
+      ;(snapshot as any)[key] = store.getState(key)
+    })
+
+    return snapshot
+  }, [])
+
+  const lastSnapshot = useSyncExternalStore(subscribe, getSnapshot, () => getServerSnapshot)
 
   useDebugValue(lastSnapshot, (snapshot) => {
     return `useNamespaceStores-${keys.join(', ')}}`
