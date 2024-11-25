@@ -5,7 +5,7 @@ test('Home page has correct title and content', async ({ page }) => {
   await page.goto('/')
 
   // Check the title
-  await expect(page).toHaveTitle(/Hello, Playwright!/)
+  await expect(page).toHaveTitle(/Next.js/)
 
   // Check for the H1 text
   const header = await page.locator('h1')
