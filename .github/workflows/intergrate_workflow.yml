@@ -20,8 +20,12 @@ jobs:
     secrets: inherit
 
   release:
+    needs:
+      - test
+      - e2e-test
     uses: ./.github/workflows/release-reusable.yml
     secrets: inherit
+
 #  storybook-deploy:
 #    needs: test
 #    uses: ./.github/workflows/chromatic-on-pr.yml

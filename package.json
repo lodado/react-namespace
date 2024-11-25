@@ -29,6 +29,7 @@
     "build-storybook": "turbo run build  --filter=!storybook-docs && turbo run build-storybook  --concurrency=5",
     "clean": "turbo run clean && rm -rf node_modules",
     "test": "turbo run test  --concurrency=5",
+    "test:e2e": "turbo run test:e2e  --concurrency=5",
     "lint": "turbo run lint --concurrency=5 -- --cache --fix",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "release": "turbo run build --filter=!@lodado/react-namespace-storybook-docs && changeset version && changeset publish  --concurrency=5",

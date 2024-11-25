@@ -17,6 +17,10 @@
       "dependsOn": []
     },
 
+    "test:e2e": {
+      "dependsOn": []
+    },
+
     "chromatic": {},
 
     "lint": {
