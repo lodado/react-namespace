@@ -8,6 +8,7 @@ import { StoreOption } from './type'
 import { createNamespaceHooks } from './utils/createNamespaceHooks'
 
 export function createNamespaceContext<StoreType extends NamespaceStore<Record<string | symbol, any>>>({
+
   globalStore: globalStoreDIP,
   localStore,
   option = {

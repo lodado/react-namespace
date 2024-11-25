@@ -2,7 +2,7 @@
 
 import { NamespaceStore } from '@lodado/namespace-core'
 import { isEqual } from 'lodash-es'
-import { useCallback, useEffect, useLayoutEffect, useRef, useSyncExternalStore } from 'react'
+import { useCallback, useDebugValue, useEffect, useLayoutEffect, useRef, useSyncExternalStore } from 'react'
 
 /**
  * Custom hook that allows accessing and subscribing to selected state values from a NamespaceStore.
@@ -64,6 +64,10 @@ export function useNamespaceExternalStores<State extends Record<string, any>>(
     getSnapshot({ isServerSide: false }),
     getSnapshot({ isServerSide: true }),
   )
+
+  useDebugValue(lastSnapshot, (snapshot) => {
+    return `useNamespaceStores-${keys.join(', ')}}`
+  })
 
   return lastSnapshot
 }

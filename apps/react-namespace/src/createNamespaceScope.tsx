@@ -87,7 +87,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
         [overwriteStore],
       )
 
-      if (isNil(namespaceInstance)) throw new Error('namespaceNamespaceStore is null')
+      if (isNil(namespaceInstance)) throw new Error(`${scopeName} ${rootComponentName} namespaceNamespaceStore is null`)
 
       return <Context.Provider value={namespaceInstance as StoreType}>{children}</Context.Provider>
     }
@@ -104,7 +104,9 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
       const context = useContext(Context)
 
       if (option.contextThrowNeed && !context) {
-        throw new Error('useNamespaceStoreHooks must be used within a NamespaceContext.Provider')
+        throw new Error(
+          `${scopeName} ${rootComponentName} useNameStore must be used within a NamespaceContext.Provider`,
+        )
       }
 
       return context
