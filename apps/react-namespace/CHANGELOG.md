@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 0.1.6
+
+### Patch Changes
+
+- composedProvider providers -> Providers name change
+
 ## 0.1.5
 
 ### Patch Changes

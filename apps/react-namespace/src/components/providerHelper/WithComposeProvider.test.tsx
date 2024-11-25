@@ -21,8 +21,8 @@ const TestComponent: React.FC = () => {
 describe('WithComposedProviders', () => {
   it('wraps the component with provided contexts', () => {
     const EnhancedComponent = WithComposedProviders({
-      Component: TestComponent,
-      providers: [<ContextA.Provider key="a" value="ValueA" />, <ContextB.Provider key="b" value="ValueB" />],
+      Components: TestComponent,
+      Providers: [<ContextA.Provider key="a" value="ValueA" />, <ContextB.Provider key="b" value="ValueB" />],
     })
 
     render(<EnhancedComponent />)
@@ -33,8 +33,8 @@ describe('WithComposedProviders', () => {
 
   it('renders correctly with no providers', () => {
     const EnhancedComponent = WithComposedProviders({
-      Component: TestComponent,
-      providers: [],
+      Components: TestComponent,
+      Providers: [],
     })
 
     render(<EnhancedComponent />)
@@ -50,8 +50,8 @@ describe('WithComposedProviders', () => {
     )
 
     const EnhancedComponent = WithComposedProviders({
-      Component: PropsComponent,
-      providers: [],
+      Components: PropsComponent,
+      Providers: [],
     })
 
     render(<EnhancedComponent message="Hello, Props!" />)
