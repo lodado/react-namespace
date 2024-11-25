@@ -5,9 +5,9 @@ const readline = require('readline')
 const { exec } = require('child_process')
 
 const validatePackageName = (name) => {
-  const regex = /^@react-namespace\/[a-zA-Z0-9-_]+$/
+  const regex = /^@lodado\/[a-zA-Z0-9-_]+$/
   if (!regex.test(name)) {
-    throw new Error(`Invalid package name format. It should be in the format @react-namespace/package's name`)
+    throw new Error(`Invalid package name format. It should be in the format @lodado/package's name`)
   }
 
   const hasUppercase = /[A-Z-]/.test(name.split('/')[1])
@@ -112,13 +112,13 @@ const createEslintConfig = (projectDir) => {
   const rootIndextsContent = `module.exports = {
     root: true,
     extends: ["react-namespace"],
-  };  
+  };
 `
   fs.writeFileSync(path.join(projectDir, '.eslintrc.js'), rootIndextsContent)
 }
 
 const createIndexScss = (projectDir) => {
-  const indexScssContent = ` 
+  const indexScssContent = `
 `
   fs.writeFileSync(path.join(projectDir, 'index.scss'), indexScssContent)
 }
@@ -228,7 +228,7 @@ const runPnpmInstall = (projectDir) => {
 }
 
 ;(async () => {
-  const packageName = await question('Enter the package name (ex- @react-namespace/react-namespace)')
+  const packageName = await question('Enter the package name (ex- @lodado/react-namespace)')
 
   validatePackageName(packageName)
 

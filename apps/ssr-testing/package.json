@@ -1,0 +1,52 @@
+{
+  "name": "@lodado/ssr-testing",
+  "version": "0.0.0",
+  "private": true,
+  "sideEffects": [
+    "./index.scss"
+  ],
+  "license": "MIT",
+  "exports": {
+    ".": {
+      "require": "./index.ts",
+      "import": "./index.ts"
+    },
+    "./index.scss": "./index.scss",
+    "./package.json": "./package.json"
+  },
+  "source": "./index.ts",
+  "main": "./index.ts",
+  "module": "./index.ts",
+  "types": "./index.ts",
+  "files": [
+    "dist/**"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "test": "playwright test",
+    "test:e2e:report": "playwright show-report",
+    "lint": "eslint \"src/**/*.ts*\"",
+    "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.0",
+    "@types/node": "^20.12.7",
+    "autoprefixer": "^10.4.19",
+    "babel-jest": "29.5.0",
+    "eslint": "^8.57.0",
+    "eslint-config-react-namespace": "workspace:*",
+    "jest-config": "workspace:*",
+    "postcss": "^8.4.38",
+    "rollup-config": "workspace:*",
+    "sass": "^1.75.0",
+    "ts-jest": "29.0.5",
+    "tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "next": "14.2.11",
+    "react": "^18.0",
+    "react-dom": "^18"
+  },
+  "peerDependenciesMeta": {}
+}
