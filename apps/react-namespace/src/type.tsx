@@ -18,14 +18,23 @@ export type StoreOption<State extends Record<string | symbol, any>, StoreType ex
   | {
       localStore?: never
       globalStore?: never
+      option?: {
+        contextThrowNeed?: boolean
+      }
     }
   | {
       localStore?: never
       globalStore: (() => StoreType) | StoreType
+      option?: {
+        contextThrowNeed?: boolean
+      }
     }
   | {
       globalStore?: never
       localStore: () => StoreType
+      option?: {
+        contextThrowNeed?: boolean
+      }
     }
 
 export type StoreMethodKeys<StoreType> = {

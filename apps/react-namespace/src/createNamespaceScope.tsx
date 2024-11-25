@@ -55,7 +55,13 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
    *    */
   function createScopeContext<StoreType extends NamespaceStore<Record<string | symbol, any>>>(
     rootComponentName: string,
-    { globalStore, localStore }: StoreOption<StoreType['state'], StoreType>,
+    {
+      globalStore,
+      localStore,
+      option = {
+        contextThrowNeed: true,
+      },
+    }: StoreOption<StoreType['state'], StoreType>,
   ) {
     const { Context: BaseContext } = createNamespaceContext({
       globalStore,
@@ -96,6 +102,10 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
       const Context = scope?.[scopeName]?.[index] || BaseContext
 
       const context = useContext(Context)
+
+      if (option.contextThrowNeed && !context) {
+        throw new Error('useNamespaceStoreHooks must be used within a NamespaceContext.Provider')
+      }
 
       return context
     })

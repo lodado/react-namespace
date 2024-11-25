@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 0.1.9
+
+### Patch Changes
+
+- add contextThrowNeed option
+
 ## 0.1.8
 
 ### Patch Changes

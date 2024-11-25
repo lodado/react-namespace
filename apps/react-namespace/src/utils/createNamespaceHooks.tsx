@@ -20,10 +20,6 @@ export const createNamespaceHooks = <
   function useNamespaceAction(params?: PARAMS): StoreActions<StoreType, State> {
     const context = getContext(params as PARAMS)
 
-    if (context === undefined) {
-      throw new Error('useNamespaceAction must be used within a Provider')
-    }
-
     const methods: Partial<StoreActions<StoreType, State>> = {}
 
     // Get prototype of the context to access directly defined methods
@@ -66,11 +62,7 @@ export const createNamespaceHooks = <
   function useNamespaceStores(selector: (state: State) => Partial<State>, params?: PARAMS) {
     const context = getContext(params as PARAMS)
 
-    if (context === undefined) {
-      throw new Error('useNamespaceStores must be used within a Provider')
-    }
-
-    const value = useNamespaceExternalStores(context, selector) as StateOf<State>
+    const value = useNamespaceExternalStores(context!, selector) as StateOf<State>
 
     return { ...value, ...useNamespaceAction(params as PARAMS) }
   }
@@ -80,11 +72,7 @@ export const createNamespaceHooks = <
   function useNamespaceContext(params?: PARAMS): StoreType | undefined {
     const context = getContext(params as PARAMS)
 
-    if (context === undefined) {
-      throw new Error('useNamespaceContext must be used within a Provider')
-    }
-
-    return context as StoreType
+    return context
   }
 
   return { useNamespaceStores, useNamespaceAction, useNamespaceContext }
