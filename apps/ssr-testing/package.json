@@ -24,7 +24,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "test": "playwright test",
+    "test:e2e": "playwright test",
     "test:e2e:report": "playwright show-report",
     "lint": "eslint \"src/**/*.ts*\"",
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"

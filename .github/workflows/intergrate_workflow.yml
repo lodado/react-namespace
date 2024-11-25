@@ -14,8 +14,14 @@ jobs:
   test:
     uses: ./.github/workflows/test-reusable.yml
     secrets: inherit
-  
-  
+
+  e2e-test:
+    uses: ./.github/workflows/playwright.yml
+    secrets: inherit
+
+  release:
+    uses: ./.github/workflows/release-reusable.yml
+    secrets: inherit
 #  storybook-deploy:
 #    needs: test
 #    uses: ./.github/workflows/chromatic-on-pr.yml
