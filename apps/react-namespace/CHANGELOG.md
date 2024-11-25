@@ -1,5 +1,16 @@
 # @lodado/react-namespace
 
+## 1.0.0
+
+### Major Changes
+
+- major version release
+
+### Patch Changes
+
+- Updated dependencies
+  - @lodado/namespace-core@1.0.0
+
 ## 0.1.9
 
 ### Patch Changes

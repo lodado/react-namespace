@@ -1,5 +1,11 @@
 # @lodado/namespace-core
 
+## 1.0.0
+
+### Major Changes
+
+- major version release
+
 ## 0.1.5
 
 ### Patch Changes

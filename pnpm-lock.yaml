@@ -241,6 +241,12 @@ importers:
 
   apps/ssr-testing:
     dependencies:
+      '@lodado/namespace-core':
+        specifier: workspace:*
+        version: link:../core
+      '@lodado/react-namespace':
+        specifier: workspace:*
+        version: link:../react-namespace
       next:
         specifier: 14.2.11
         version: 14.2.11(@babel/core@7.26.0)(@playwright/test@1.49.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.81.0)
