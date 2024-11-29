@@ -11,7 +11,7 @@ const meta: Meta = {
 
 export default meta
 
-class TestStore extends NamespaceStore<{ asyncCount: Promise<number> }> {
+class TestStore extends NamespaceStore<{ asyncCount: number | Promise<number> }> {
   constructor() {
     super({
       asyncCount: new Promise((resolve) => {
@@ -21,9 +21,7 @@ class TestStore extends NamespaceStore<{ asyncCount: Promise<number> }> {
   }
 
   async updateCount() {
-    this.state.asyncCount = new Promise((resolve) => {
-      setTimeout(() => resolve(10), 1100)
-    })
+    this.state.asyncCount = 1
   }
 }
 
