@@ -1,5 +1,13 @@
 # @lodado/react-namespace
 
+## 1.0.1
+
+### Patch Changes
+
+- namespacestore state can be promise (experimental feature)
+- Updated dependencies
+  - @lodado/namespace-core@1.0.1
+
 ## 1.0.0
 
 ### Major Changes

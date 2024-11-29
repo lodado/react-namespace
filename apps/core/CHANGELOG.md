@@ -1,5 +1,11 @@
 # @lodado/namespace-core
 
+## 1.0.1
+
+### Patch Changes
+
+- namespacestore state can be promise (experimental feature)
+
 ## 1.0.0
 
 ### Major Changes

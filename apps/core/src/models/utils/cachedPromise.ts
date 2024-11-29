@@ -1,3 +1,8 @@
+/**
+ * promise codes from jotai
+ * https://github.com/pmndrs/jotai/blob/main/src/react/useAtomValue.ts
+ */
+
 export const isPromiseLike = (x: unknown): x is PromiseLike<unknown> => typeof (x as any)?.then === 'function'
 
 export const attachPromiseMeta = <T>(
