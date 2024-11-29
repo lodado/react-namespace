@@ -1,3 +1,5 @@
+/* eslint-disable no-param-reassign */
+
 'use client'
 
 import { NamespaceStore } from '@lodado/namespace-core'

@@ -1,7 +1,7 @@
 import { deepClone } from '../utils'
 import EventPublisher from './EventPublisher'
 import { Listener } from './type'
-import { createStateProxy } from './utils/createStateProxy'
+import { createContinuablePromise, createStateProxy, isPromiseLike, use } from './utils'
 
 export default class NamespaceStore<State extends Record<string | symbol, any>> {
   /**
@@ -39,11 +39,21 @@ export default class NamespaceStore<State extends Record<string | symbol, any>> 
     }
   }
 
-  getState<K extends keyof State>(key: K): State[K] {
-    return this.state[key]
+  getState<K extends keyof State>(key: K) {
+    const value = this.state[key]
+
+    if (isPromiseLike(value)) {
+      return use(createContinuablePromise(value))
+    }
+
+    return value
   }
 
   subscribe<K extends keyof State>(key: K, listener: Listener<State[keyof State]>): () => void {
     return this.publisher.subscribe(key, listener)
+  }
+
+  publish(key: keyof State, value: State[keyof State]): void {
+    this.publisher.publish(key, value)
   }
 }
