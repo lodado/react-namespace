@@ -43,7 +43,7 @@ export default class NamespaceStore<State extends Record<string | symbol, any>> 
     const value = this.state[key]
 
     if (isPromiseLike(value)) {
-      return use(createContinuablePromise(value))
+      return use(createContinuablePromise(value)) as Awaited<ReturnType<State[K]>>
     }
 
     return value

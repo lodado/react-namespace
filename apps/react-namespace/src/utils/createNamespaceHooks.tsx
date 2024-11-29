@@ -5,7 +5,7 @@
 import { NamespaceStore } from '@lodado/namespace-core'
 
 import { useNamespaceExternalStores } from '../hooks/useNamespaceExternalStores'
-import { StateOf, StoreActions } from '../type'
+import { StateOf, StoreActions, UnwrapPromiseState } from '../type'
 
 export const createNamespaceHooks = <
   State extends Record<string | symbol, any>,
@@ -54,15 +54,15 @@ export const createNamespaceHooks = <
 
   function useNamespaceStores(
     selector: (state: State) => Partial<State>,
-  ): StateOf<State> & StoreActions<StoreType, State>
+  ): UnwrapPromiseState<StateOf<State>> & StoreActions<StoreType, State>
   function useNamespaceStores(
     selector: (state: State) => Partial<State>,
     params: PARAMS,
-  ): StateOf<State> & StoreActions<StoreType, State>
+  ): UnwrapPromiseState<StateOf<State>> & StoreActions<StoreType, State>
   function useNamespaceStores(selector: (state: State) => Partial<State>, params?: PARAMS) {
     const context = getContext(params as PARAMS)
 
-    const value = useNamespaceExternalStores(context!, selector) as StateOf<State>
+    const value = useNamespaceExternalStores(context!, selector) as UnwrapPromiseState<StateOf<State>>
 
     return { ...value, ...useNamespaceAction(params as PARAMS) }
   }

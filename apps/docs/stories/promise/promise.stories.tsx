@@ -36,8 +36,6 @@ const TestComponent = () => {
     asyncCount: state.asyncCount,
   }))
 
-  console.log(asyncCount, 'wtf?')
-
   return (
     <div data-testid="count-value">
       Count: {asyncCount}
