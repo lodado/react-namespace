@@ -1,5 +1,13 @@
 # @lodado/react-namespace
 
+## 1.0.3
+
+### Patch Changes
+
+- package.json description update (you dont need to upgrade version)
+- Updated dependencies
+  - @lodado/namespace-core@1.0.3
+
 ## 1.0.2
 
 ### Patch Changes

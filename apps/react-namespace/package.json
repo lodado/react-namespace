@@ -1,8 +1,26 @@
 {
   "name": "@lodado/react-namespace",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "sideEffects": false,
+  "description": "state manager for react. It is a simple and powerful state manager that uses the Proxy API to manage the state of your application. inspired by radix-ui's scopeContext and create Context wrapper",
+  "keywords": [
+    "react",
+    "state",
+    "manager",
+    "management",
+    "proxy",
+    "store",
+    "scope",
+    "context"
+  ],
+  "author": "lodado",
+  "contributors": [],
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lodado/react-namespace/issues"
+  },
+  "homepage": "https://github.com/lodado/react-namespace",
+  "packageManager": "pnpm@9.0.6",
   "exports": {
     ".": {
       "require": "./index.ts",
@@ -15,7 +33,8 @@
   "module": "./index.ts",
   "types": "./index.ts",
   "files": [
-    "dist/**"
+    "dist/**",
+    "README.md"
   ],
   "scripts": {
     "test": "jest --passWithNoTests",

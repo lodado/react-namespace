@@ -1,5 +1,11 @@
 # @lodado/namespace-core
 
+## 1.0.3
+
+### Patch Changes
+
+- package.json description update (you dont need to upgrade version)
+
 ## 1.0.2
 
 ### Patch Changes

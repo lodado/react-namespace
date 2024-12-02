@@ -1,5 +1,13 @@
 # @lodado/ssr-testing
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @lodado/react-namespace@1.0.3
+  - @lodado/namespace-core@1.0.3
+
 ## 0.0.3
 
 ### Patch Changes
