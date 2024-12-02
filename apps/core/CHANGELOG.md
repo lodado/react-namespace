@@ -1,5 +1,11 @@
 # @lodado/namespace-core
 
+## 1.0.2
+
+### Patch Changes
+
+- move promise handler from namespace to react-namepspace repository
+
 ## 1.0.1
 
 ### Patch Changes

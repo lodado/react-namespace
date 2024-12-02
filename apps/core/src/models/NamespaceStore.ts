@@ -42,10 +42,6 @@ export default class NamespaceStore<State extends Record<string | symbol, any>> 
   getState<K extends keyof State>(key: K) {
     const value = this.state[key]
 
-    if (isPromiseLike(value)) {
-      return use(createContinuablePromise(value)) as Awaited<ReturnType<State[K]>>
-    }
-
     return value
   }
 

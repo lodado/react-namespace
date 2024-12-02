@@ -6,6 +6,8 @@ import { NamespaceStore } from '@lodado/namespace-core'
 import { isEqual } from 'lodash-es'
 import { useCallback, useDebugValue, useEffect, useLayoutEffect, useMemo, useRef, useSyncExternalStore } from 'react'
 
+import { createContinuablePromise, isPromiseLike, use } from './utils'
+
 /**
  * Custom hook that allows accessing and subscribing to selected state values from a NamespaceStore.
  *
@@ -43,7 +45,13 @@ export function useNamespaceExternalStores<State extends Record<string, any>>(
   const getSnapshot = useCallback(() => {
     const snapshot = {} as Partial<State>
     keys.forEach((key) => {
-      ;(snapshot as any)[key] = store.getState(key)
+      let value = store.getState(key)
+
+      if (isPromiseLike(value)) {
+        value = use(createContinuablePromise(value)) as Awaited<ReturnType<State[typeof key]>>
+      }
+
+      ;(snapshot as any)[key] = value
     })
 
     if (isRender && previousSnapshotRef.current && isEqual(snapshot, previousSnapshotRef.current)) {
