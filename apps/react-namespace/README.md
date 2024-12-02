@@ -5,6 +5,8 @@
 
 more information >>
 
+<https://github.com/lodado/react-namespace/tree/publish>
+
 ## Key Features
 
 - **Scoped State Management**: Isolates state within specific React contexts or namespaces.
@@ -76,53 +78,124 @@ function YourComponent() {
 export default YourComponent;
 ```
 
-### Composing Scopes
+## Scope
 
-You can create and compose multiple namespace scopes to manage isolated contexts efficiently.
+The concept of **scope** in this library ensures isolated and modular state management for React applications. Inspired by Radix UI's `scopeContext`, it overcomes React Context's limitations, such as difficulties with nested context management and the overhead of re-rendering entire trees. By utilizing scoped contexts, this approach provides a more efficient, reusable, and scalable way to handle state in complex components.
 
-```typescript
-import { createNamespaceScope, composeContextScopes } from "@lodado/react-namespace";
+---
 
-const [createScopeContextA, createScopeA] = createNamespaceScope('ScopeA');
-const [createScopeContextB, createScopeB] = createNamespaceScope('ScopeB');
+### Example Code
 
-const composedScope = composeContextScopes(createScopeA, createScopeB);
+Below is an example that demonstrates how to create and use **scoped state** with `@lodado/react-namespace`.
 
-const [createComposedContext, createComposedScope] = createNamespaceScope('ComposedScope', [composedScope]);
-
-const {
-  Provider: ComposedProvider,
-  useNamespaceStores,
-} = createComposedContext('ComposedScope', { globalStore });
-```
-
-### Reset State
-
-You can reset state using the `reset` method available in `useNamespaceAction` or `useNamespaceStores`.
+#### 1. Define Stores for Scoped State
 
 ```tsx
-const TestComponent = () => {
-  const { count } = useNamespaceStores((state) => ({ count: state.count }));
-  const { reset } = useNamespaceAction();
+import { NamespaceStore } from '@lodado/namespace-core';
+
+// Counter store for managing count
+class Counter extends NamespaceStore<{ count: number }> {
+  constructor(initialCount = 0) {
+    super({ count: initialCount });
+  }
+
+  increment() {
+    this.state.count += 1;
+  }
+
+  decrement() {
+    this.state.count -= 1;
+  }
+}
+
+// Text store for managing text
+class Text extends NamespaceStore<{ text: string }> {
+  constructor() {
+    super({ text: 'test' });
+  }
+
+  updateText() {
+    this.state.text = 'updated';
+  }
+}
+```
+
+---
+
+#### 2. Create Scopes and Providers
+
+Scopes allow you to isolate state for different contexts. In this example, a `Dialog` scope and an `AlertDialog` scope are created.
+
+```tsx
+import { createNamespaceScope, Scope } from '@lodado/react-namespace';
+
+// Create a Dialog scope
+const [createDialogContext, createDialogScope] = createNamespaceScope('Dialog');
+const { Provider: DialogProvider, useNamespaceStores: useDialogNamespaceStore } = createDialogContext('Dialog', {
+  localStore: () => new Counter(),
+});
+
+// Create an AlertDialog scope, extending Dialog scope
+const [createAlertDialogProvider, createAlertDialogScope] = createNamespaceScope('AlertDialog', [createDialogScope]);
+const { Provider: AlertDialogProvider, useNamespaceStores: useAlertDialogNamespaceStore } = createAlertDialogProvider('AlertDialog', {
+  localStore: () => new Text(),
+});
+```
+
+---
+
+#### 3. Use Scoped State in Components
+
+Using `useNamespaceStores`, you can access state from specific scopes.
+
+```tsx
+const DialogContent = ({ scope, scope2 }: { scope: Scope<any>; scope2: Scope<any> }) => {
+  const { count } = useDialogNamespaceStore((state) => ({ count: state.count }), scope);
+
+  const { text } = useAlertDialogNamespaceStore((state) => ({ text: state.text }), scope);
+  
+  const { increment } = useDialogNamespaceStore(() => ({}), scope2);
 
   return (
-    <button type="button" onClick={reset}>
-      Reset
-    </button>
+    <div>
+      <button onClick={increment}>Click!</button>
+      <div>
+        Content: {count} - {text}
+      </div>
+    </div>
   );
 };
 ```
 
-### Using the Context Directly
+---
 
-Access the underlying context instance using `useNamespaceContext`.
+#### 4. Combine Scopes in Your Application
+
+You can nest providers with different scopes to isolate and manage state efficiently.
 
 ```tsx
-const TestComponent = () => {
-  const context = useNamespaceContext();
-  // Use the context as needed
+export const ScopeExample = () => {
+  const scope1 = createAlertDialogScope()({});
+  const scope2 = createAlertDialogScope()({});
+
+  return (
+    <AlertDialogProvider scope={scope1.__scopeAlertDialog}>
+      <AlertDialogProvider scope={scope2.__scopeAlertDialog}>
+        <DialogProvider scope={scope2.__scopeAlertDialog}>
+          <DialogProvider scope={scope1.__scopeAlertDialog}>
+            <DialogContent scope={scope1.__scopeAlertDialog} scope2={scope2.__scopeAlertDialog} />
+            <DialogContent scope={scope2.__scopeAlertDialog} scope2={scope1.__scopeAlertDialog} />
+          </DialogProvider>
+        </DialogProvider>
+      </AlertDialogProvider>
+    </AlertDialogProvider>
+  );
 };
 ```
+
+---
+
+This example highlights how **scoped state** allows you to create isolated, modular, and reusable contexts for state management, particularly in scenarios with nested or complex components.
 
 ## Installation
 
