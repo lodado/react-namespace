@@ -14,6 +14,7 @@ A simple and powerful state manager for React applications that uses the Proxy A
   - [Creating a Namespace Context](#creating-a-namespace-context)
   - [Providing the Store](#providing-the-store)
   - [Consuming the Store](#consuming-the-store)
+- [Scope](#scope)
 - [API Reference](#api-reference)
   - [`createNamespaceContext`](#createnamespacecontext)
   - [`createNamespaceScope`](#createnamespacescope)
@@ -204,9 +205,9 @@ function YourComponent() {
 export default YourComponent;
 ```
 
-## Scope
+# Scope
 
-The concept of **scope** in this library ensures isolated and modular state management for React applications. Inspired by Radix UI's `scopeContext`, it overcomes React Context's limitations, such as difficulties with nested context management and the overhead of re-rendering entire trees. By utilizing scoped contexts, this approach provides a more efficient, reusable, and scalable way to handle state in complex components.
+ Inspired by Radix UI's `scopeContext`, it overcomes React Context's limitations, such as difficulties with nested context management and the overhead of re-rendering entire trees.
 
 ---
 
