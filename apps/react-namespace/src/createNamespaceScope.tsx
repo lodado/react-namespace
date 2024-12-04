@@ -87,14 +87,14 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
         [overwriteStore],
       )
 
-      if (isNil(namespaceInstance)) throw new Error(`${scopeName} ${rootComponentName} namespaceNamespaceStore is null`)
+      if (isNil(namespaceInstance)) throw new Error(`${scopeName}-${rootComponentName} namespaceNamespaceStore is null`)
 
       return <Context.Provider value={namespaceInstance as StoreType}>{children}</Context.Provider>
     }
 
     Provider.displayName = `${rootComponentName}Provider`
 
-    const { useNamespaceStores, useNamespaceContext } = createNamespaceHooks<
+    const { useNamespaceStores, useNamespaceAction, useNamespaceContext } = createNamespaceHooks<
       StoreType['state'],
       StoreType,
       Scope<StoreType | undefined>
@@ -112,7 +112,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
       return context
     })
 
-    return { Provider, useNamespaceStores, useNamespaceContext }
+    return { Provider, useNamespaceStores, useNamespaceContext, useNamespaceAction }
   }
 
   const createScope: CreateScope = () => {

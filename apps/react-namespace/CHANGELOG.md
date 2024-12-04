@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 1.0.6
+
+### Patch Changes
+
+- createNaespaceScope export useNamespaceAction
+
 ## 1.0.5
 
 ### Patch Changes
