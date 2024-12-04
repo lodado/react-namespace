@@ -24,7 +24,9 @@ export const TicTacToeExample = () => {
     <ComposeProviders
       providers={[
         <BoardProvider overwriteStore={game} />,
-        <ScopeContainerProvider value={{ user1, user2 }} />,
+        <ScopeContainerProvider
+          value={{ user1: user1.__scopeTicTacToeRepository!, user2: user2.__scopeTicTacToeRepository! }}
+        />,
 
         <RepositoryProvider scope={user1.__scopeTicTacToeRepository} overwriteStore={player1Repo} />,
         <RepositoryProvider scope={user2.__scopeTicTacToeRepository} overwriteStore={player2Repo} />,

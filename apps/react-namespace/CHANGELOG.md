@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 1.0.5
+
+### Patch Changes
+
+- scopeContainer type change
+
 ## 1.0.4
 
 ### Patch Changes

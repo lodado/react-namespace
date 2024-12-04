@@ -12,7 +12,7 @@ const useTicTacToeAdapter = () => {
   const currentUserScope = turn % 2 === 0 ? player1Scope : player2Scope
 
   const game = useBoardNamespaceContext()!
-  const repository = useRepositoryContext(currentUserScope.__scopeTicTacToeRepository)!
+  const repository = useRepositoryContext(currentUserScope)!
   const useCase = new TicTacToeUseCase(game, repository)
 
   const handleMove = async (row: number, col: number) => {
