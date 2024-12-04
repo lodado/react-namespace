@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 1.0.4
+
+### Patch Changes
+
+- change some types to enhance developer experience
+
 ## 1.0.3
 
 ### Patch Changes

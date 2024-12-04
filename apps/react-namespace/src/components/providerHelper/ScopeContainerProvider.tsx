@@ -9,10 +9,10 @@ export type ScopeContainer<KEY_TYPE extends JSON_KEY_TYPE> = {
 }
 
 export function createScopeContainer<T extends JSON_KEY_TYPE>() {
-  const ScopeContext = createContext<ScopeContainer<T> | null>(null)
+  const ScopeContext = createContext<ScopeContainer<T> | NonNullable<Scope> | null>(null)
 
   const ScopeContainerProvider: FC<{
-    value: ScopeContainer<T>
+    value: ScopeContainer<T> | NonNullable<Scope>
     children?: ReactNode
   }> = ({ value, children }) => {
     return <ScopeContext.Provider value={useMemo(() => value, Object.keys(value))}>{children}</ScopeContext.Provider>

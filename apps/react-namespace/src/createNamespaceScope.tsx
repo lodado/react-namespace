@@ -72,7 +72,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
     defaultContexts = [...defaultContexts, BaseContext]
 
     const Provider: FC<{
-      scope: Scope<StoreType>
+      scope?: Scope<StoreType>
       overwriteStore?: () => StoreType | StoreType
       children?: ReactNode
     }> = (props) => {
