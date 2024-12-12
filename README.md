@@ -206,7 +206,8 @@ export default YourComponent;
 
 # Scope
 
- Inspired by Radix UI's `scopeContext`, it overcomes React Context's limitations, such as difficulties with nested context management and the overhead of re-rendering entire trees.
+The concept of "scope" overcomes React Context's limitations, such as the challenges of 
+managing nested contexts and the overhead of re-rendering entire trees.
 
 ---
 
