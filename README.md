@@ -5,6 +5,7 @@
 
 A simple and powerful state manager for React applications that uses the Proxy API to manage the state of your application. Inspired by Radix UI's `scopeContext` and `createContext` wrapper, this library provides a flexible way to handle both global and local state within your React components.
 
+
 ## Table of Contents
 
 - [Features](#features)
@@ -427,101 +428,7 @@ A tuple containing:
 
 - `createScopeContext`: Function to create a context for a namespace store.
 - `composeContextScopes`: Function to compose multiple context scopes.
-
-#### example code
-
-```jsx
-
-import { NamespaceStore } from '@lodado/namespace-core'
-import { createNamespaceScope, Scope } from '@lodado/react-namespace'
-
-class Counter extends NamespaceStore<{ count: number }> {
-  constructor(count = 0) {
-    super({ count })
-  }
-
-  increment() {
-    this.state.count += 1
-  }
-
-  decrement() {
-    this.state.count -= 1
-  }
-}
-
-class Text extends NamespaceStore<{ text: string }> {
-  constructor() {
-    super({ text: 'test' })
-  }
-
-  updateText() {
-    this.state.text = 'updated'
-  }
-}
-
-const [createDialogContext, createDialogScope] = createNamespaceScope('Dialog')
-const { Provider: DialogProvider, useNamespaceStores: useDialogNamespaceStore } = createDialogContext('Dialog', {
-  localStore: () => new Counter(),
-})
-
-const [createAlertDialogProvider, createAlertDialogScope] = createNamespaceScope('AlertDialog', [createDialogScope])
-
-const { Provider: AlertDialogProvider, useNamespaceStores: useAlertDialogNamespaceStore } = createAlertDialogProvider('AlertDialog', {
-  localStore: () => new Text(),
-})
-
-const alertDialogScope = createAlertDialogScope()
-const alertDialogScope2 = createAlertDialogScope()
-
-const DialogContent = (props: { scope: Scope<any>; scope2: Scope<any> }) => {
-  const { scope, scope2 } = props
-
-  const { count } = useDialogNamespaceStore((state) => {
-    return { count: state.count }
-  }, scope)
-
-  const { text } = useAlertDialogNamespaceStore((state) => {
-    return { text: state.text }
-  }, scope)
-
-  const { increment } = useDialogNamespaceStore((state) => {
-    return { count: state.count }
-  }, scope2)
-
-  return (
-    <div>
-      <button type="button" onClick={() => increment()}>
-        click!
-      </button>
-      content {count} {text}
-    </div>
-  )
-}
-
-export const ScopeExample = () => {
-  const scope = alertDialogScope({})
-  const scope2 = alertDialogScope2({})
-
-  return (
-    <>
-      <AlertDialogProvider scope={scope.__scopeAlertDialog}>
-        <AlertDialogProvider scope={scope2.__scopeAlertDialog}>
-          <DialogProvider scope={scope2.__scopeAlertDialog}>
-            <DialogProvider scope={scope.__scopeAlertDialog}>
-              <DialogContent scope={scope.__scopeAlertDialog} scope2={scope2.__scopeAlertDialog} />
-              <DialogContent scope={scope2.__scopeAlertDialog} scope2={scope.__scopeAlertDialog} />
-            </DialogProvider>
-          </DialogProvider>
-
-
-        </AlertDialogProvider>
-      </AlertDialogProvider>
-    </>
-  )
-}
-
-```
-
+ 
 ### `composeContextScopes`
 
 Composes multiple context scopes into a single scope.
@@ -541,6 +448,20 @@ function composeContextScopes(...scopes: CreateScope[]): CreateScope;
 - `createScope`: A function that creates a composed scope.
 
 ## Examples
+
+### Example codes 
+
+---
+
+#### Table Example codes 
+[https://github.com/lodado/react-namespace/blob/main/apps/docs/stories/scope/table/App.tsx](https://github.com/lodado/react-namespace/tree/main/apps/docs/stories/scope/table)
+
+#### TicTactoe
+[https://github.com/lodado/react-namespace/tree/main/apps/docs/stories/scope/tictactoe 
+](https://github.com/lodado/react-namespace/tree/main/apps/docs/stories/scope/tictactoe)
+
+---
+
 
 ### Using Local Stores
 
