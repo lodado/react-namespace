@@ -2,6 +2,10 @@
 
 This `TableExample` component demonstrates the usage of multiple table scopes within a grid layout. It uses React, styled-components, and the `@lodado/react-namespace` library to manage state across different table instances. This implementation allows each table instance to have its own isolated scope and provides flexibility for interacting with these instances.
 
+
+![simplescreenrecorder-2024-12-12_20 23 30-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/1a3bf0aa-e894-422a-9190-663d95e157c5)
+
+
 ## Key Features
 
 1. **Scoped State Management:**
