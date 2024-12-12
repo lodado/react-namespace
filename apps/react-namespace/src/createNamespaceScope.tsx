@@ -94,7 +94,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
 
     Provider.displayName = `${rootComponentName}Provider`
 
-    const { useNamespaceStores, useNamespaceAction, useNamespaceContext } = createNamespaceHooks<
+    const { useNamespaceStores, useNamespaceAction, useNamespaceSelector, useNamespaceContext } = createNamespaceHooks<
       StoreType['state'],
       StoreType,
       Scope<StoreType | undefined>
@@ -112,7 +112,7 @@ export function createNamespaceScope(scopeName: string, createContextScopeDeps: 
       return context
     })
 
-    return { Provider, useNamespaceStores, useNamespaceContext, useNamespaceAction }
+    return { Provider, useNamespaceSelector, useNamespaceStores, useNamespaceContext, useNamespaceAction }
   }
 
   const createScope: CreateScope = () => {

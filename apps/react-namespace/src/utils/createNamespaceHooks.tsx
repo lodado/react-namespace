@@ -52,6 +52,19 @@ export const createNamespaceHooks = <
     return methods as StoreActions<StoreType, State>
   }
 
+  function useNamespaceSelector(selector: (state: State) => Partial<State>): UnwrapPromiseState<StateOf<State>>
+  function useNamespaceSelector(
+    selector: (state: State) => Partial<State>,
+    params: PARAMS,
+  ): UnwrapPromiseState<StateOf<State>>
+  function useNamespaceSelector(selector: (state: State) => Partial<State>, params?: PARAMS) {
+    const context = getContext(params as PARAMS)
+
+    const value = useNamespaceExternalStores(context!, selector) as UnwrapPromiseState<StateOf<State>>
+
+    return { ...value }
+  }
+
   function useNamespaceStores(
     selector: (state: State) => Partial<State>,
   ): UnwrapPromiseState<StateOf<State>> & StoreActions<StoreType, State>
@@ -60,11 +73,7 @@ export const createNamespaceHooks = <
     params: PARAMS,
   ): UnwrapPromiseState<StateOf<State>> & StoreActions<StoreType, State>
   function useNamespaceStores(selector: (state: State) => Partial<State>, params?: PARAMS) {
-    const context = getContext(params as PARAMS)
-
-    const value = useNamespaceExternalStores(context!, selector) as UnwrapPromiseState<StateOf<State>>
-
-    return { ...value, ...useNamespaceAction(params as PARAMS) }
+    return { ...useNamespaceSelector(selector, params as PARAMS), ...useNamespaceAction(params as PARAMS) }
   }
 
   function useNamespaceContext(): StoreType | undefined
@@ -75,5 +84,5 @@ export const createNamespaceHooks = <
     return context
   }
 
-  return { useNamespaceStores, useNamespaceAction, useNamespaceContext }
+  return { useNamespaceSelector, useNamespaceStores, useNamespaceAction, useNamespaceContext }
 }

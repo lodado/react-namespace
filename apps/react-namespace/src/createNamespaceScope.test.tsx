@@ -22,12 +22,17 @@ class Counter extends NamespaceStore<{ count: number }> {
 describe('createNamespaceScope', () => {
   const [createTestContext, createTestScope] = createNamespaceScope('TestScope')
 
-  const { Provider: TestProvider, useNamespaceStores: useTestNamespaceStore } = createTestContext('TestScope', {
+  const {
+    Provider: TestProvider,
+    useNamespaceSelector,
+    useNamespaceAction,
+  } = createTestContext('TestScope', {
     localStore: () => new Counter(0),
   })
 
   const TestComponent = ({ scope }: { scope: any }) => {
-    const { count, increment } = useTestNamespaceStore((state) => ({ count: state.count }), scope)
+    const { count } = useNamespaceSelector((state) => ({ count: state.count }), scope)
+    const { increment } = useNamespaceAction(scope)
 
     return (
       <div>

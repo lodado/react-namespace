@@ -1,6 +1,6 @@
 {
   "name": "@lodado/ssr-testing",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "private": true,
   "sideEffects": [
     "./index.scss"

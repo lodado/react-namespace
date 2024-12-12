@@ -215,3 +215,42 @@ describe('TestComponent with only overwriteStore', () => {
   })
 })
 
+
+
+describe('TestComponent with useNamespaceSelector', () => {
+  const { Provider, useNamespaceSelector, useNamespaceAction } = createNamespaceContext<TestStore>({})
+
+  const TestComponent2 = () => {
+    const { count } = useNamespaceSelector((state) => ({ count: state.count }))
+    const { reset, increment, decrement } = useNamespaceAction()
+
+    return (
+      <>
+        <p data-testid="count-value">Count: {count}</p>
+        <button type="button" data-testid="reset-button" onClick={reset}>
+          Reset
+        </button>
+        <button type="button" data-testid="increment-button" onClick={increment}>
+          Increment
+        </button>
+        <button type="button" data-testid="decrement-button" onClick={decrement}>
+          Decrement
+        </button>
+      </>
+    )
+  }
+
+  describe('Rendering and initial state', () => {
+    it('should render with the initial state', () => {
+      render(
+        <Provider overwriteStore={() => new TestStore()}>
+          <TestComponent2 />
+        </Provider>,
+      )
+
+      const countValue = screen.getByTestId('count-value')
+      expect(countValue).toHaveTextContent('Count: 0')
+    })
+  })
+})
+

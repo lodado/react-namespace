@@ -1,5 +1,11 @@
 # @lodado/react-namespace
 
+## 1.0.7
+
+### Patch Changes
+
+- add useNamespaceSelector function
+
 ## 1.0.6
 
 ### Patch Changes

@@ -18,7 +18,7 @@ export function createNamespaceContext<StoreType extends NamespaceStore<Record<s
   const Context = createContext<StoreType | undefined>(undefined)
   const globalStore = globalStoreDIP && typeof globalStoreDIP === 'function' ? globalStoreDIP() : globalStoreDIP
 
-  const { useNamespaceStores, useNamespaceAction, useNamespaceContext } = createNamespaceHooks<
+  const { useNamespaceStores, useNamespaceSelector, useNamespaceAction, useNamespaceContext } = createNamespaceHooks<
     StoreType['state'],
     StoreType,
     undefined
@@ -49,5 +49,13 @@ export function createNamespaceContext<StoreType extends NamespaceStore<Record<s
     return <Context.Provider value={namespaceInstance}>{children}</Context.Provider>
   }
 
-  return { Context, Provider, store: globalStore, useNamespaceStores, useNamespaceAction, useNamespaceContext } as const
+  return {
+    Context,
+    Provider,
+    store: globalStore,
+    useNamespaceSelector,
+    useNamespaceStores,
+    useNamespaceAction,
+    useNamespaceContext,
+  } as const
 }
