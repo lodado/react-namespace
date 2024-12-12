@@ -1,15 +1,15 @@
 import { createNamespaceContext, createNamespaceScope, createScopeContainer, Scope } from '@lodado/react-namespace'
 
-import PlayerRepository from './models/PlayerRepository'
-import TicTacToe from './models/TicTacToe'
+import PlayerPresenter from '../models/PlayerPresenter'
+import TicTacToePresenter from '../models/TicTacToePresenter'
 
-export const [createRepositoryProvider, createRepositoryScope] = createNamespaceScope('TicTacToeRepository')
+export const [createRepositoryProvider, createRepositoryScope] = createNamespaceScope('TicTacToe')
 
 export const {
-  Provider: RepositoryProvider,
-  useNamespaceStores: useRepositoryStores,
-  useNamespaceContext: useRepositoryContext,
-} = createRepositoryProvider<PlayerRepository>('repository', {})
+  Provider: PlayerProvider,
+  useNamespaceStores: usePlayerStores,
+  useNamespaceContext: usePlayerContext,
+} = createRepositoryProvider<PlayerPresenter>('Player', {})
 
 export const createUser1Scope = createRepositoryScope()
 export const createUser2Scope = createRepositoryScope()
@@ -19,7 +19,7 @@ export const {
   useNamespaceStores: useBoardNamespaceStores,
   useNamespaceContext: useBoardNamespaceContext,
 } = createNamespaceContext({
-  globalStore: () => new TicTacToe(),
+  globalStore: () => new TicTacToePresenter(),
 })
 
 export const { ScopeContainerProvider, useScopeContainer } = createScopeContainer<'user1' | 'user2'>()

@@ -3,7 +3,7 @@ import { NamespaceStore } from '@lodado/namespace-core'
 /**
  * Represents the state of a Tic Tac Toe game.
  */
-export default class TicTacToe extends NamespaceStore<{
+export default class TicTacToePresenter extends NamespaceStore<{
   board: (string | null)[][]
   winner: string | 'Draw' | null
   turn: number

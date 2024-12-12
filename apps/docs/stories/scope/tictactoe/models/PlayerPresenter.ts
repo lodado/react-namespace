@@ -3,7 +3,7 @@ import { NamespaceStore } from '@lodado/namespace-core'
 /**
  * TicTacToe Player Repository handles player-specific data.
  */
-export default class PlayerRepository extends NamespaceStore<{ icon: string }> {
+export default class PlayerPresenter extends NamespaceStore<{ icon: string }> {
   constructor(icon: string) {
     super({ icon })
   }

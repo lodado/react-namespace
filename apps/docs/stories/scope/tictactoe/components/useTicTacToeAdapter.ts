@@ -1,5 +1,5 @@
-import { TicTacToeUseCase } from './models/TicTacToeUsecase'
-import { useBoardNamespaceContext, useBoardNamespaceStores, useRepositoryContext, useScopeContainer } from './Provider'
+import { TicTacToeUseCase } from '../models/TicTacToeUsecase'
+import { useBoardNamespaceContext, useBoardNamespaceStores, usePlayerContext, useScopeContainer } from './Provider'
 
 const useTicTacToeAdapter = () => {
   const { user1: player1Scope, user2: player2Scope } = useScopeContainer()
@@ -12,7 +12,7 @@ const useTicTacToeAdapter = () => {
   const currentUserScope = turn % 2 === 0 ? player1Scope : player2Scope
 
   const game = useBoardNamespaceContext()!
-  const repository = useRepositoryContext(currentUserScope)!
+  const repository = usePlayerContext(currentUserScope)!
   const useCase = new TicTacToeUseCase(game, repository)
 
   const handleMove = async (row: number, col: number) => {

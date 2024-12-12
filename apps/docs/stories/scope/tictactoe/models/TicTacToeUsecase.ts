@@ -1,5 +1,5 @@
-import PlayerRepository from './PlayerRepository'
-import TicTacToe from './TicTacToe'
+import PlayerRepository from './PlayerPresenter'
+import TicTacToePresenter from './TicTacToePresenter'
 
 /**
  * TicTacToe UseCase orchestrates game logic and player interactions.
@@ -7,10 +7,10 @@ import TicTacToe from './TicTacToe'
  * use case should be 3 usecases, but i am too lazy to make 3 example usecases for now..
  */
 export class TicTacToeUseCase {
-  private game: TicTacToe
+  private game: TicTacToePresenter
   private playerRepo: PlayerRepository
 
-  constructor(game: TicTacToe, playerRepo: PlayerRepository) {
+  constructor(game: TicTacToePresenter, playerRepo: PlayerRepository) {
     this.game = game
     this.playerRepo = playerRepo
   }
@@ -37,7 +37,7 @@ export class TicTacToeUseCase {
   /**
    * Get the current game state.
    */
-  async getGameState(): Promise<TicTacToe> {
+  async getGameState(): Promise<TicTacToePresenter> {
     return this.game
   }
 }

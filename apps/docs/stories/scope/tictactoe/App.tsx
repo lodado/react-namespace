@@ -1,21 +1,21 @@
 import { ComposeProviders } from '@lodado/react-namespace'
 import { useCallback } from 'react'
 
-import PlayerRepository from './components/models/PlayerRepository'
-import TicTacToe from './components/models/TicTacToe'
 import {
   BoardProvider,
   createUser1Scope,
   createUser2Scope,
-  RepositoryProvider,
+  PlayerProvider,
   ScopeContainerProvider,
 } from './components/Provider'
 import TicTacToeGame from './components/TicTacToeGame'
+import PlayerPresenter from './models/PlayerPresenter'
+import TicTacToePresenter from './models/TicTacToePresenter'
 
 export const TicTacToeExample = () => {
-  const game = useCallback(() => new TicTacToe(), [])
-  const player1Repo = useCallback(() => new PlayerRepository('🔵'), [])
-  const player2Repo = useCallback(() => new PlayerRepository('❌'), [])
+  const game = useCallback(() => new TicTacToePresenter(), [])
+  const player1Repo = useCallback(() => new PlayerPresenter('🔵'), [])
+  const player2Repo = useCallback(() => new PlayerPresenter('❌'), [])
 
   const user1 = createUser1Scope({})
   const user2 = createUser2Scope({})
@@ -24,12 +24,10 @@ export const TicTacToeExample = () => {
     <ComposeProviders
       providers={[
         <BoardProvider overwriteStore={game} />,
-        <ScopeContainerProvider
-          value={{ user1: user1.__scopeTicTacToeRepository!, user2: user2.__scopeTicTacToeRepository! }}
-        />,
+        <ScopeContainerProvider value={{ user1: user1.__scopeTicTacToe!, user2: user2.__scopeTicTacToe! }} />,
 
-        <RepositoryProvider scope={user1.__scopeTicTacToeRepository} overwriteStore={player1Repo} />,
-        <RepositoryProvider scope={user2.__scopeTicTacToeRepository} overwriteStore={player2Repo} />,
+        <PlayerProvider scope={user1.__scopeTicTacToe} overwriteStore={player1Repo} />,
+        <PlayerProvider scope={user2.__scopeTicTacToe} overwriteStore={player2Repo} />,
       ]}
     >
       <div className="App">
