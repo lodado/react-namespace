@@ -21,6 +21,7 @@ A simple and powerful state manager for React applications that uses the Proxy A
   - [`createNamespaceScope`](#createnamespacescope)
   - [`composeContextScopes`](#composecontextscopes)
 - [Examples](#examples)
+  - [exmaple codes](#Example codes)
   - [Using Local Stores](#using-local-stores)
   - [Namespaced Scopes](#namespaced-scopes)
   - [Composing Scopes](#composing-scopes)
