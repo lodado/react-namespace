@@ -1,16 +1,16 @@
 
 # Namespace Store for React
 
-(i am writing code and docs..!)
+Namespace Store for React is a simple and powerful state management library designed to solve issues with nested contexts in React applications. Inspired by Radix UI's scopeContext and createContext wrapper, it leverages the Proxy API to effectively handle both global and local state.
 
-A simple and powerful state manager for React applications that uses the Proxy API to manage the state of your application. Inspired by Radix UI's `scopeContext` and `createContext` wrapper, this library provides a flexible way to handle both global and local state within your React components.
+![simplescreenrecorder-2024-12-12_20 23 30-ezgif com-video-to-gif-converter](https://github.com/user-attachments/assets/e6a9afcf-9454-40f4-816c-786b2b223b49)
 
 
 ## Table of Contents
 
 - [Features](#features)
 - [Installation](#installation)
-- [Getting Started](#getting-started)
+- [Getting Started](#getting-started---basic-usage)
   - [Creating a Namespace Store](#creating-a-namespace-store)
   - [Creating a Namespace Context](#creating-a-namespace-context)
   - [Providing the Store](#providing-the-store)
@@ -37,9 +37,6 @@ A simple and powerful state manager for React applications that uses the Proxy A
 
 ## Motivation
 
-```
-useContext() always looks for the closest provider above the component that calls it. It searches upwards and does not consider providers in the component from which you’re calling useContext().
-```
 
 <https://react.dev/reference/react/useContext#passing-data-deeply-into-the-tree>
 
