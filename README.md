@@ -1,6 +1,9 @@
 
 # Namespace Store for React
 
+[![npm version](https://img.shields.io/npm/v/@lodado/react-namespace)](https://www.npmjs.com/package/@lodado/react-namespace)
+[![npm downloads](https://img.shields.io/npm/dt/@lodado/react-namespace)](https://www.npmjs.com/package/@lodado/react-namespace)
+
 Namespace Store for React is a simple and powerful state management library designed to solve issues with nested contexts in React applications. Inspired by Radix UI's scopeContext and createContext wrapper, it leverages the Proxy API to effectively handle both global and local state.
 
 ![carbon (3) (1)](https://github.com/user-attachments/assets/0016707c-7d92-47f2-b6fc-35c9f8bb468e)
