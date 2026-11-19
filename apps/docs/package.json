@@ -32,7 +32,7 @@
     "@storybook/addon-interactions": "^8.2.6",
     "@storybook/addon-links": "^8.2.6",
     "@storybook/addon-mdx-gfm": "^8.2.6",
-    "@storybook/addon-onboarding": "^8.2.6",
+    "@storybook/addon-onboarding": "^10.6.7",
     "@storybook/addon-postcss": "^2.0.0",
     "@storybook/addon-viewport": "^8.2.6",
     "@storybook/blocks": "^8.2.6",
