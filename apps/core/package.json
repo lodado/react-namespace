@@ -50,7 +50,7 @@
     "jest-config": "workspace:*",
     "rollup-config": "workspace:*",
     "eslint-config-react-namespace": "workspace:*",
-    "ts-jest": "29.0.5",
+    "ts-jest": "29.4.15",
     "tsconfig": "workspace:*"
   },
   "dependencies": {},
