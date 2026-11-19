@@ -23,13 +23,13 @@
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-url": "^8.0.2",
     "postcss-import": "^16.1.0",
-    "rollup": "^4.14.3",
+    "rollup": "^4.68.3",
     "rollup-plugin-import-css": "^3.5.0",
     "rollup-plugin-node-externals": "^7.1.1",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-preserve-directives": "^0.4.0",
-    "rollup-plugin-typescript2": "^0.36.0",
+    "rollup-plugin-typescript2": "^0.37.0",
     "rollup-plugin-visualizer": "^5.12.0"
   }
 }

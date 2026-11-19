@@ -30,20 +30,20 @@
     "clean": "rm -rf .turbo && rm -rf node_modules && rm -rf dist"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.0",
+    "@playwright/test": "^1.65.1",
     "@types/node": "^20.12.7",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
-    "autoprefixer": "^10.4.19",
+    "autoprefixer": "^10.6.2",
     "babel-jest": "29.5.0",
     "eslint": "^8.57.0",
     "eslint-config-react-namespace": "workspace:*",
     "jest-config": "workspace:*",
-    "playwright": "^1.49.0",
-    "postcss": "^8.4.38",
+    "playwright": "^1.65.1",
+    "postcss": "^8.5.33",
     "rollup-config": "workspace:*",
-    "sass": "^1.75.0",
-    "ts-jest": "29.0.5",
+    "sass": "^1.108.2",
+    "ts-jest": "29.4.15",
     "tsconfig": "workspace:*"
   },
   "dependencies": {

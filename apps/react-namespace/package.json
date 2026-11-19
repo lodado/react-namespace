@@ -51,11 +51,11 @@
     "eslint-config-react-namespace": "workspace:*",
     "jest-config": "workspace:*",
     "rollup-config": "workspace:*",
-    "ts-jest": "29.0.5",
+    "ts-jest": "29.4.15",
     "tsconfig": "workspace:*"
   },
   "dependencies": {
-    "lodash-es": "^4.17.21"
+    "lodash-es": "^4.18.1"
   },
   "peerDependencies": {
     "react": "^18.0",
